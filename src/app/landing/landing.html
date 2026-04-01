@@ -1,0 +1,68 @@
+<div class="page">
+  <div class="bg-grid"></div>
+
+  <header class="header">
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 32 32" fill="none">
+        <rect x="2" y="16" width="28" height="14" rx="3" fill="currentColor" opacity="0.15"/>
+        <path d="M16 2L28 9V16H4V9L16 2Z" fill="currentColor" opacity="0.9"/>
+      </svg>
+      <span class="logo-text">PracticalHub</span>
+    </div>
+    <span class="college-tag">YCCE · Nagpur</span>
+  </header>
+
+  <main class="main">
+    <div class="hero">
+      <div class="hero-eyebrow">College Practical Platform</div>
+      <h1 class="hero-title">Start your<br><span class="accent">practical session</span></h1>
+      <p class="hero-sub">Submit code, get instant scores, and track progress.</p>
+    </div>
+
+    <div class="cards-wrapper">
+      <div class="role-card student-card" [class.selected]="selectedRole === 'student'" (click)="selectRole('student')">
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Student</h2>
+          <p class="card-desc">Solve practicals and view scores.</p>
+          <div class="card-tags">
+            <span class="tag">Submit</span><span class="tag">Scores</span>
+          </div>
+        </div>
+        <div class="card-arrow" *ngIf="selectedRole !== 'student'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div class="card-check" *ngIf="selectedRole === 'student'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>
+
+      <div class="role-card faculty-card" [class.selected]="selectedRole === 'faculty'" (click)="selectRole('faculty')">
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Faculty</h2>
+          <p class="card-desc">Manage classes and assign work.</p>
+          <div class="card-tags">
+            <span class="tag">Manage</span><span class="tag">Assign</span>
+          </div>
+        </div>
+        <div class="card-arrow" *ngIf="selectedRole !== 'faculty'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div class="card-check" *ngIf="selectedRole === 'faculty'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-area" [class.visible]="selectedRole !== null">
+      <button class="continue-btn" [class.faculty-btn]="selectedRole === 'faculty'" (click)="continue()">
+        <span>Continue as {{ selectedRole | titlecase }}</span>
+      </button>
+    </div>
+  </main>
+</div>

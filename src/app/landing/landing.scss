@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+// ── Variables ───────────────────────────────────────────
+// These ensure the Teal and Purple themes work perfectly
+$student-color: #1D9E75;
+$student-light: #E1F5EE;
+$faculty-color: #534AB7;
+$faculty-light: #EEEDFE;
+$neutral-100:   #F5F4F0;
+$neutral-500:   #888780;
+$neutral-900:   #1A1A18;
+$border:        rgba(0,0,0,0.08);
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+// ── Layout ──────────────────────────────────────────────
+.page {
+  font-family: 'Sora', sans-serif;
+  background: $neutral-100;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient($border 1px, transparent 1px),
+    linear-gradient(90deg, $border 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: $neutral-900;
+  .logo-icon { width: 32px; color: $student-color; }
+}
+
+.college-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: $neutral-500;
+  background: white;
+  border: 1px solid $border;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+// ── Main Content ────────────────────────────────────────
+.main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.hero {
+  text-align: center;
+  max-width: 500px;
+  margin-bottom: 48px;
+  
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: $neutral-500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  
+  .hero-title {
+    font-size: 42px;
+    font-weight: 600;
+    color: $neutral-900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    .accent { color: $student-color; border-bottom: 3px solid rgba($student-color, 0.2); }
+  }
+  
+  .hero-sub { color: $neutral-500; font-size: 15px; font-weight: 300; }
+}
+
+// ── The Cards (Fixed Sizing) ───────────────────────────
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 320px); // Fixed width cards
+  gap: 20px;
+  justify-content: center;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+  }
+}
+
+.role-card {
+  position: relative;
+  background: white;
+  border: 1.5px solid $border;
+  border-radius: 20px;
+  padding: 32px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    border-color: #ddd;
+  }
+
+  &.selected {
+    &.student-card { border-color: $student-color; box-shadow: 0 0 0 4px rgba($student-color, 0.1); }
+    &.faculty-card { border-color: $faculty-color; box-shadow: 0 0 0 4px rgba($faculty-color, 0.1); }
+  }
+}
+
+.card-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg { width: 28px; height: 28px; } // Fixed Icon Size
+}
+
+.student-card .card-icon-wrap { background: $student-light; color: $student-color; }
+.faculty-card .card-icon-wrap { background: $faculty-light; color: $faculty-color; }
+
+.card-title { font-size: 20px; font-weight: 600; color: $neutral-900; margin: 0; }
+.card-desc { font-size: 14px; color: $neutral-500; line-height: 1.5; font-weight: 300; }
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  .tag {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #f0f0f0;
+    text-transform: uppercase;
+  }
+}
+
+// ── The Arrows (FIXED GIANT ISSUE) ──────────────────────
+.card-arrow {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg { 
+    width: 20px !important; // Forces the arrow to stay small
+    height: 20px !important; 
+    stroke-width: 2.5px;
+  }
+}
+
+.card-check {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  svg { width: 14px; height: 14px; color: white; stroke-width: 3px; }
+}
+
+.student-card .card-check { background: $student-color; }
+.faculty-card .card-check { background: $faculty-color; }
+
+@keyframes pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+// ── Action Button ───────────────────────────────────────
+.action-area {
+  margin-top: 48px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  &.visible { opacity: 1; transform: translateY(0); }
+}
+
+.continue-btn {
+  background: $student-color;
+  color: white;
+  border: none;
+  padding: 16px 36px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.faculty-btn { background: $faculty-color; }
+  
+  svg { width: 18px; height: 18px; }
+  &:hover { filter: brightness(0.9); transform: scale(1.02); }
+  &:active { transform: scale(0.98); }
+}
+
+.action-hint { font-size: 12px; color: $neutral-500; margin-top: 12px; font-weight: 300; }
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: $neutral-500;
+  .dot { margin: 0 8px; opacity: 0.3; }
+}

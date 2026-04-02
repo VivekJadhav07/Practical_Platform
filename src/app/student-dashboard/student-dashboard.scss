@@ -1,0 +1,76 @@
+/* Master wrapper locking the app to the full viewport height */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Prevent the whole page from scrolling */
+  background-color: var(--surface-background);
+}
+
+/* Sidebar locks to the left */
+.layout-sidebar {
+  flex-shrink: 0;
+  z-index: 10;
+
+  /* --- MOBILE FIX: Remove wrapper from flex flow --- */
+  @media (max-width: 768px) {
+    width: 0;
+    /* The inside of the sidebar is position: fixed,
+       so this wrapper just needs to stop pushing the main content. */
+  }
+}
+
+/* Right side column for Navbar + Content */
+.layout-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden; /* Keep constraints tight */
+
+  /* --- MOBILE FIX: Force full width --- */
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
+}
+
+/* Navbar stays at the top of the right column */
+.layout-navbar {
+  flex-shrink: 0;
+  z-index: 5;
+
+  /* Optional: Adjust the margin if you want it flush or floating */
+  ::ng-deep .navbar-container {
+    margin: 16px 24px 0 24px !important;
+
+    /* --- MOBILE FIX: Smaller navbar margins --- */
+    @media (max-width: 768px) {
+      margin: 16px 16px 0 16px !important;
+    }
+  }
+}
+
+/* Content area fills remaining space and scrolls */
+.layout-content {
+  flex-grow: 1;
+  overflow-y: auto; /* This allows ONLY the main content to scroll */
+  padding: 0 24px 24px 24px;
+  scroll-behavior: smooth;
+
+  /* --- MOBILE FIX: Adjust padding for bottom navigation bar --- */
+  @media (max-width: 768px) {
+    /* 16px sides, 80px bottom (keeps content from hiding under the bottom nav) */
+    padding: 0 16px 80px 16px;
+  }
+
+  /* Custom scrollbar for Webkit to match the theme */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+  }
+}

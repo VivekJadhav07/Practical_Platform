@@ -1,0 +1,100 @@
+<div class="practicals-container">
+
+  <header class="page-header">
+    <h1 class="page-title">My Practicals</h1>
+  </header>
+
+  <div class="filters-scroll-wrapper">
+    <div class="filters">
+      <button class="filter-chip">All</button>
+      <button class="filter-chip">Pending</button>
+      <button class="filter-chip">Submitted</button>
+      <button class="filter-chip active">Graded</button>
+    </div>
+  </div>
+
+  <div class="subject-group">
+    <div class="subject-header">
+      <div class="subject-title">
+        <span class="dot dot-green"></span>
+        <h2>Data Structures</h2>
+      </div>
+      <div class="subject-stats">6 practicals &nbsp;&middot;&nbsp; Avg 8.5/10</div>
+    </div>
+
+    <div class="practical-list">
+      <div class="practical-row">
+        <div class="row-num">01</div>
+        <div class="icon-wrapper badge-orange-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+        </div>
+
+        <div class="row-content">
+          <h4>Binary search implementation</h4>
+          <div class="mobile-meta">Python &nbsp;&middot;&nbsp; 10 pts</div>
+        </div>
+
+        <div class="row-meta desktop-only">Python</div>
+        <div class="row-meta desktop-only">10 pts</div>
+
+        <div class="row-status">
+          <span class="badge badge-orange">Pending</span>
+        </div>
+      </div>
+
+      <div class="practical-row">
+        <div class="row-num">02</div>
+        <div class="icon-wrapper badge-orange-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+        </div>
+
+        <div class="row-content">
+          <h4>Stack using arrays</h4>
+          <div class="mobile-meta">C &nbsp;&middot;&nbsp; 10 pts</div>
+        </div>
+
+        <div class="row-meta desktop-only">C</div>
+        <div class="row-meta desktop-only">10 pts</div>
+
+        <div class="row-status">
+          <span class="badge badge-green">9/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subject-group" *ngFor="let group of subjectGroups">
+
+  <div class="subject-header">
+    <div class="subject-title">
+      <span class="dot" [ngClass]="group.dotClass"></span>
+      <h2>{{ group.title }}</h2>
+    </div>
+    <div class="subject-stats">{{ group.totalPracticals }} practicals &nbsp;&middot;&nbsp; Avg {{ group.averageScore }}</div>
+  </div>
+
+  <div class="practical-list">
+    <div class="practical-row" *ngFor="let prac of group.practicals">
+      <div class="row-num">{{ prac.num }}</div>
+
+      <div class="icon-wrapper" [ngClass]="prac.iconClass">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [innerHTML]="prac.iconSvg"></svg>
+      </div>
+
+      <div class="row-content">
+        <h4>{{ prac.title }}</h4>
+        <div class="mobile-meta">{{ prac.language }} &nbsp;&middot;&nbsp; {{ prac.points }}</div>
+      </div>
+
+      <div class="row-meta desktop-only">{{ prac.language }}</div>
+      <div class="row-meta desktop-only">{{ prac.points }}</div>
+
+      <div class="row-status">
+        <span class="badge" [ngClass]="prac.statusClass">{{ prac.status }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>

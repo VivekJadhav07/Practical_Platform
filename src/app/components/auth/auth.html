@@ -1,0 +1,57 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="auth-modal" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="role === 'student'">
+      <div class="modal-header">
+        <span class="role-tag student-tag">Student</span>
+        <h2>Welcome back</h2>
+        <p class="sub-heading">Sign in to your student account</p>
+      </div>
+
+      <form [formGroup]="studentForm" (ngSubmit)="onStudentSubmit()">
+        <div class="form-group">
+          <label>EMAIL</label>
+          <input type="email" formControlName="email" placeholder="name@gmail.com">
+        </div>
+
+        <div class="form-group">
+          <label>PASSWORD</label>
+          <input type="password" formControlName="password" placeholder="pass@123">
+        </div>
+
+        <div class="form-group">
+          <label>CLASS CODE <span class="muted">(first time only)</span></label>
+          <input type="text" formControlName="classroomCode" placeholder="AAAA">
+        </div>
+
+        <button type="submit" class="btn student-btn" [disabled]="studentForm.invalid">
+          Sign in
+        </button>
+      </form>
+    </ng-container>
+
+    <ng-container *ngIf="role === 'faculty'">
+      <div class="modal-header">
+        <span class="role-tag faculty-tag">Faculty</span>
+        <h2>Faculty login</h2>
+        <p class="sub-heading">Sign in to your faculty account</p>
+      </div>
+
+      <form [formGroup]="facultyForm" (ngSubmit)="onFacultySubmit()">
+        <div class="form-group">
+          <label>EMAIL</label>
+          <input type="email" formControlName="email" placeholder="you@college.edu">
+        </div>
+        <div class="form-group">
+          <label>PASSWORD</label>
+          <input type="password" formControlName="password" placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn faculty-btn" [disabled]="facultyForm.invalid">
+          Sign in
+        </button>
+      </form>
+    </ng-container>
+
+    <button class="back-link" (click)="closeModal()">← Back to role selection</button>
+  </div>
+</div>

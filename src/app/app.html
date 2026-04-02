@@ -1,1 +1,8 @@
-<app-landing></app-landing>
+<app-loader
+  *ngIf="isLoading"
+  (ready)="onLoaderReady()">
+</app-loader>
+
+<main *ngIf="!isLoading">
+  <router-outlet></router-outlet>
+</main>

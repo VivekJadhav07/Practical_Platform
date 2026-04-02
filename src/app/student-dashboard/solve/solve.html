@@ -1,0 +1,85 @@
+<div class="solve-page">
+
+  <header class="solve-header">
+    <h2>Solve &mdash; {{ problem.title.split(' ')[0] }} {{ problem.title.split(' ')[1] }}</h2>
+  </header>
+
+  <div class="solve-layout">
+
+    <div class="left-pane">
+
+      <div class="card problem-card">
+        <div class="card-top-meta">
+          <span class="section-label">PROBLEM</span>
+          <div class="pills">
+            <span class="pill pill-lang">{{ problem.language }}</span>
+            <span class="pill pill-marks">{{ problem.marks }} marks</span>
+            <span class="pill pill-due">{{ problem.dueDate }}</span>
+          </div>
+        </div>
+
+        <h3 class="problem-title">{{ problem.title }}</h3>
+
+        <div class="problem-desc" [innerHTML]="problem.description"></div>
+        <p class="problem-constraints">{{ problem.constraints }}</p>
+
+        <div class="tags">
+          <span class="tag" *ngFor="let tag of problem.tags">{{ tag }}</span>
+        </div>
+      </div>
+
+      <div class="card test-cases-card">
+        <div class="card-top-meta">
+          <span class="section-label">TEST CASES</span>
+          <span class="case-count">{{ testCases.length }} cases</span>
+        </div>
+
+        <div class="test-case-list">
+          <div class="test-case-item" *ngFor="let tc of testCases; let i = index">
+            <div class="tc-label">CASE {{ i + 1 }}</div>
+            <div class="tc-content">
+              <span class="tc-input">{{ tc.input }}</span>
+              <span class="tc-arrow">&rarr;</span>
+              <span class="tc-output" [ngClass]="tc.status">{{ tc.expectedOutput }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="right-pane">
+
+      <div class="editor-container">
+
+        <div class="editor-toolbar">
+          <div class="lang-selector">
+            <select [(ngModel)]="selectedLanguage">
+              <option *ngFor="let lang of availableLanguages" [value]="lang">{{ lang }}</option>
+            </select>
+          </div>
+
+          <button class="btn-run" (click)="runTests()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Run tests
+          </button>
+        </div>
+
+        <div class="editor-body">
+          <textarea
+            class="code-textarea"
+            [(ngModel)]="codeContent"
+            spellcheck="false">
+          </textarea>
+        </div>
+      </div>
+
+      <button class="btn-submit" (click)="submitSolution()">
+        Submit solution &rarr;
+      </button>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="home-container">
+
+  <header class="page-header">
+    <p class="date">{{ currentDate }}</p>
+    <h1 class="greeting">Good morning, <span class="highlight">{{ studentName }}</span> 👋</h1>
+  </header>
+
+  <section class="stats-row">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <h3 class="stat-title">{{ stat.title }}</h3>
+      <div class="stat-value" [style.color]="stat.valueColor">{{ stat.value }}</div>
+      <p class="stat-desc">{{ stat.description }}</p>
+    </div>
+  </section>
+
+  <div class="dashboard-grid">
+
+    <section class="grid-column">
+      <div class="section-header">
+        <h2>Due soon</h2>
+        <a routerLink="/student/Practicals" class="see-all">See all &rarr;</a>
+      </div>
+
+      <div class="practical-card" *ngFor="let prac of duePracticals">
+        <div class="icon-wrapper" [class]="prac.dueClass + '-icon'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [innerHTML]="prac.icon"></svg>
+        </div>
+
+        <div class="card-content">
+          <div class="card-header">
+            <h4>{{ prac.title }}</h4>
+            <span class="marks">{{ prac.marks }} marks</span>
+          </div>
+          <p class="subtitle">{{ prac.subject }} &nbsp;&middot;&nbsp; {{ prac.topic }}</p>
+          <span class="badge" [class]="prac.dueClass">{{ prac.dueText }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-column">
+      <div class="section-header">
+        <h2>Recent scores</h2>
+      </div>
+
+      <div class="score-card" *ngFor="let item of recentScores">
+        <div class="score-circle" [style.color]="item.color" [style.borderColor]="item.color">
+          <span class="score">{{ item.score }}</span>
+          <span class="max">/{{ item.max }}</span>
+        </div>
+
+        <div class="card-content">
+          <h4>{{ item.title }}</h4>
+          <p class="subtitle">{{ item.subject }} &nbsp;&middot;&nbsp; {{ item.time }}</p>
+
+          <div class="progress-track">
+            <div class="progress-fill"
+                 [style.width.%]="(item.score / item.max) * 100"
+                 [style.backgroundColor]="item.color">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

@@ -1,0 +1,222 @@
+/* --- BASE SIDEBAR (DESKTOP) --- */
+.sidebar-container {
+  width: 260px;
+  height: 100vh;
+  background-color: var(--surface-card);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  position: sticky;
+  top: 0;
+  transition: background-color 0.3s, border-color 0.3s;
+
+  /* =========================================
+     📱 MOBILE VIEW: BOTTOM NAVIGATION BAR
+     ========================================= */
+  @media (max-width: 768px) {
+    width: 100vw;
+    height: auto;
+    position: fixed;
+    bottom: 0; /* Pin to bottom */
+    left: 0;
+    top: auto; /* Remove sticky top */
+    padding: 8px 16px 16px 16px; /* Extra padding at bottom for phone swipe areas */
+    flex-direction: row; /* Layout items side-by-side */
+    justify-content: space-between;
+    align-items: center;
+    border-right: none;
+    border-top: 1px solid var(--border-color); /* Border on top now */
+    z-index: 1000;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05); /* Slight shadow pointing up */
+  }
+}
+
+/* --- HIDE NON-NAV ELEMENTS ON MOBILE --- */
+@media (max-width: 768px) {
+  .brand-section,
+  .profile-summary,
+  .section-label,
+  .spacer,
+  .sign-out {
+    display: none !important; /* Completely hide logo, profile, titles, and logout on mobile */
+  }
+}
+
+/* Brand Header */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 32px 8px;
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    svg { width: 100%; height: 100%; }
+  }
+
+  .brand-text {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    strong { font-weight: 700; color: var(--text-heading); }
+  }
+}
+
+/* Profile Summary */
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 32px 8px;
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--avatar-bg);
+    color: var(--avatar-text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .profile-text {
+    display: flex;
+    flex-direction: column;
+    .name { font-size: 0.9rem; font-weight: 600; color: var(--text-heading); }
+    .details { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+  }
+}
+
+/* Navigation Sections */
+.nav-section {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  /* MOBILE FIX: "Unwrap" the sections so all nav items sit in one flat row together */
+  @media (max-width: 768px) {
+    display: contents;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+}
+
+/* Nav Items */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  position: relative; /* For badge positioning */
+
+  /* MOBILE VIEW: Stack icon and text */
+  @media (max-width: 768px) {
+    flex-direction: column; /* Icon on top, text below */
+    gap: 4px;
+    padding: 8px 0;
+    flex: 1; /* Make all buttons equal width */
+    justify-content: center;
+    border-radius: 0; /* Remove hover background box on mobile */
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    color: var(--icon-color);
+    transition: color 0.2s ease;
+
+    @media (max-width: 768px) {
+      width: 22px; /* Slightly larger icons for touch */
+      height: 22px;
+    }
+  }
+
+  .label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    flex-grow: 1;
+
+    @media (max-width: 768px) {
+      font-size: 0.65rem; /* Tiny text under the icon */
+      flex-grow: 0;
+    }
+  }
+
+  .badge {
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 12px;
+
+    @media (max-width: 768px) {
+      position: absolute;
+      top: 0px;
+      right: 15%; /* Float badge near the icon */
+      padding: 2px 5px;
+      font-size: 0.6rem;
+    }
+  }
+
+  /* Hover State (Desktop only usually) */
+  &:hover {
+    @media (min-width: 769px) {
+      background-color: var(--surface-input);
+      color: var(--text-heading);
+      .icon { color: var(--text-heading); }
+    }
+  }
+
+  /* Active State */
+  &.active {
+    background-color: var(--avatar-bg);
+    color: var(--color-primary);
+
+    @media (max-width: 768px) {
+      background-color: transparent; /* No background block on mobile */
+      color: var(--color-primary);
+    }
+
+    .icon { color: var(--color-primary); }
+  }
+}
+
+/* Spacer to push Sign out to the bottom */
+.spacer {
+  flex-grow: 1;
+}
+
+/* Sign Out Button */
+.sign-out {
+  margin-top: auto;
+  color: var(--text-muted);
+
+  .icon { color: var(--text-muted); }
+
+  &:hover {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+    .icon { color: #ef4444; }
+  }
+}

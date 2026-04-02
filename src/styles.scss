@@ -1,1 +1,102 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+
+  // 1. Default Light Theme
+  @include mat.theme((
+    color: (
+      primary: mat.$magenta-palette, // Consider changing to a green palette to match your logo!
+      tertiary: mat.$violet-palette,
+      theme-type: light,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+// 2. Dark Theme Overrides
+.dark-theme {
+  @include mat.theme((
+    color: (
+      primary: mat.$magenta-palette,
+      tertiary: mat.$violet-palette,
+      theme-type: dark, // This tells Material to generate dark CSS variables
+    )
+  ));
+}
+
+body {
+  // Base properties
+  margin: 0;
+  height: 100%;
+
+  // Default to light scheme
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Smooth transition for background and text colors
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Ensure the browser renders scrollbars and native inputs in dark mode
+body.dark-theme {
+  color-scheme: dark;
+}
+
+/* --- Custom App Variables for Theming --- */
+:root {
+  /* LIGHT MODE (Default) */
+  --color-primary: #10b981;       /* The Green */
+  --color-primary-light: #34d399; /* The Lighter Green */
+
+  --surface-card: #ffffff;
+  --surface-input: #ffffff;
+  --surface-background: #f9fafb;
+
+  --border-color: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.04);
+
+  --text-heading: #111827;
+  --text-primary: #222222;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+
+  --icon-color: #4b5563;
+  --icon-muted: #d1d5db;
+
+  --avatar-bg: #d1fae5;
+  --avatar-text: #059669;
+}
+
+body.dark-theme {
+  /* DARK MODE OVERRIDES */
+  --color-primary: #10b981;       /* Keep the brand green */
+  --color-primary-light: #059669; /* Slightly darker for contrast in dark mode */
+
+  --surface-card: #1e1e2d;        /* Dark grey for cards/navbar */
+  --surface-input: #151521;       /* Darker grey for inputs */
+  --surface-background: #151521;  /* Very dark background for the page */
+
+  --border-color: #323248;        /* Subtle dark borders */
+  --shadow-color: rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+
+  --text-heading: #ffffff;        /* White headers */
+  --text-primary: #e5e7eb;        /* Light grey text */
+  --text-secondary: #9ca3af;      /* Muted grey text */
+  --text-muted: #6b7280;          /* Very muted grey text */
+
+  --icon-color: #d1d5db;          /* Light icons */
+  --icon-muted: #4b5563;          /* Dark muted icons */
+
+  --avatar-bg: #064e3b;           /* Dark green background */
+  --avatar-text: #34d399;         /* Light green text */
+}
+
+/* Update your existing body tag to use the new background variable */
+body {
+  // ... your existing body rules ...
+  background-color: var(--surface-background);
+}

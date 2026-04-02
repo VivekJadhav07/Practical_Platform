@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { AuthComponent } from '../components/auth/auth'; // Ensure path is correct
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, MatRippleModule, AuthComponent],
   templateUrl: './landing.html',
   styleUrls: ['./landing.scss']
 })
 export class LandingComponent {
   selectedRole: 'student' | 'faculty' | null = null;
+  showAuthModal = false; // Fixed typo
 
   constructor(private router: Router) {}
 
@@ -20,12 +24,11 @@ export class LandingComponent {
 
   continue() {
     if (!this.selectedRole) return;
-    // Store role for the login page to read later
+
+    // Save state and trigger the modal popup
     localStorage.setItem('selectedRole', this.selectedRole);
-    
-    // In a real app, you'd navigate to /login
-    // For now, we'll just alert to confirm it works
-    alert(`Navigating to ${this.selectedRole} login...`);
-    // this.router.navigate(['/login']); 
+    this.showAuthModal = true;
+
+    // Note: We don't navigate to /auth because we want the modal to overlay the landing page.
   }
 }

@@ -1,15 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-// ── Variables ───────────────────────────────────────────
-// These ensure the Teal and Purple themes work perfectly
-$student-color: #1D9E75;
-$student-light: #E1F5EE;
-$faculty-color: #534AB7;
-$faculty-light: #EEEDFE;
-$neutral-100:   #F5F4F0;
-$neutral-500:   #888780;
-$neutral-900:   #1A1A18;
-$border:        rgba(0,0,0,0.08);
+// ── Variables (Premium Dark Mode) ───────────────────────
+$bg-main: #050505; // Deep black
+$surface: rgba(20, 20, 20, 0.6); // Glassy dark surface
+$surface-hover: rgba(30, 30, 30, 0.8);
+
+$text-primary: #ffffff;
+$text-secondary: #a1a1aa; // Muted gray
+$border-color: rgba(255, 255, 255, 0.06);
+
+// Vibrant accents for dark mode
+$student-color: #2dd4bf; // Neon Teal
+$student-glow: rgba(45, 212, 191, 0.15);
+$student-bg: rgba(45, 212, 191, 0.1);
+
+$faculty-color: #a78bfa; // Neon Purple
+$faculty-glow: rgba(167, 139, 250, 0.15);
+$faculty-bg: rgba(167, 139, 250, 0.1);
 
 :host {
   display: block;
@@ -19,7 +26,8 @@ $border:        rgba(0,0,0,0.08);
 // ── Layout ──────────────────────────────────────────────
 .page {
   font-family: 'Sora', sans-serif;
-  background: $neutral-100;
+  background: $bg-main;
+  color: $text-primary;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,12 +38,26 @@ $border:        rgba(0,0,0,0.08);
 .bg-grid {
   position: absolute;
   inset: 0;
-  background-image: 
-    linear-gradient($border 1px, transparent 1px),
-    linear-gradient(90deg, $border 1px, transparent 1px);
+  background-image:
+    linear-gradient($border-color 1px, transparent 1px),
+    linear-gradient(90deg, $border-color 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+// The ambient lighting effect behind the cards
+.lighting-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 30% 40%, $student-glow 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, $faculty-glow 0%, transparent 50%);
+  opacity: 0.7;
 }
 
 .header {
@@ -44,26 +66,28 @@ $border:        rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 32px;
+  padding: 24px 40px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-weight: 600;
-  color: $neutral-900;
+  font-size: 18px;
+  color: $text-primary;
   .logo-icon { width: 32px; color: $student-color; }
 }
 
 .college-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: $neutral-500;
-  background: white;
-  border: 1px solid $border;
-  padding: 4px 12px;
+  color: $text-secondary;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid $border-color;
+  padding: 6px 16px;
   border-radius: 20px;
+  backdrop-filter: blur(4px);
 }
 
 // ── Main Content ────────────────────────────────────────
@@ -75,142 +99,185 @@ $border:        rgba(0,0,0,0.08);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 24px;
+  padding: 20px 24px 60px;
 }
 
 .hero {
   text-align: center;
-  max-width: 500px;
-  margin-bottom: 48px;
-  
+  max-width: 600px;
+  margin-bottom: 56px;
+
   .hero-eyebrow {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: $neutral-500;
+    font-size: 12px;
+    color: $text-secondary;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-  }
-  
-  .hero-title {
-    font-size: 42px;
-    font-weight: 600;
-    color: $neutral-900;
-    line-height: 1.1;
+    letter-spacing: 0.15em;
     margin-bottom: 16px;
-    .accent { color: $student-color; border-bottom: 3px solid rgba($student-color, 0.2); }
   }
-  
-  .hero-sub { color: $neutral-500; font-size: 15px; font-weight: 300; }
+
+  .hero-title {
+    font-size: 48px;
+    font-weight: 600;
+    color: $text-primary;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    .accent {
+      color: $student-color;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: $student-color;
+        border-radius: 2px;
+        opacity: 0.5;
+        box-shadow: 0 0 10px $student-glow;
+      }
+    }
+  }
+
+  .hero-sub { color: $text-secondary; font-size: 16px; font-weight: 300; line-height: 1.6; }
 }
 
-// ── The Cards (Fixed Sizing) ───────────────────────────
+// ── The Cards ───────────────────────────
 .cards-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 320px); // Fixed width cards
-  gap: 20px;
+  grid-template-columns: repeat(2, 340px);
+  gap: 24px;
   justify-content: center;
 
-  @media (max-width: 700px) {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    max-width: 320px;
+    max-width: 340px;
   }
 }
 
 .role-card {
   position: relative;
-  background: white;
-  border: 1.5px solid $border;
-  border-radius: 20px;
-  padding: 32px;
+  background: $surface;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $border-color;
+  border-radius: 24px;
+  padding: 36px 32px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-    border-color: #ddd;
+    background: $surface-hover;
+    border-color: rgba(255, 255, 255, 0.12);
   }
 
   &.selected {
-    &.student-card { border-color: $student-color; box-shadow: 0 0 0 4px rgba($student-color, 0.1); }
-    &.faculty-card { border-color: $faculty-color; box-shadow: 0 0 0 4px rgba($faculty-color, 0.1); }
+    &.student-card {
+      border-color: $student-color;
+      box-shadow: 0 0 0 1px $student-color, 0 10px 40px $student-glow;
+    }
+    &.faculty-card {
+      border-color: $faculty-color;
+      box-shadow: 0 0 0 1px $faculty-color, 0 10px 40px $faculty-glow;
+    }
   }
 }
 
 .card-icon-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  svg { width: 28px; height: 28px; } // Fixed Icon Size
+
+  svg { width: 28px; height: 28px; }
 }
 
-.student-card .card-icon-wrap { background: $student-light; color: $student-color; }
-.faculty-card .card-icon-wrap { background: $faculty-light; color: $faculty-color; }
+.student-card .card-icon-wrap { background: $student-bg; color: $student-color; }
+.faculty-card .card-icon-wrap { background: $faculty-bg; color: $faculty-color; }
 
-.card-title { font-size: 20px; font-weight: 600; color: $neutral-900; margin: 0; }
-.card-desc { font-size: 14px; color: $neutral-500; line-height: 1.5; font-weight: 300; }
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-title { font-size: 22px; font-weight: 600; color: $text-primary; margin: 0; }
+.card-desc { font-size: 14px; color: $text-secondary; line-height: 1.6; font-weight: 300; margin: 0; }
 
 .card-tags {
   display: flex;
-  gap: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
   .tag {
-    font-size: 10px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: #f0f0f0;
-    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #d4d4d8;
   }
 }
 
-// ── The Arrows (FIXED GIANT ISSUE) ──────────────────────
+.student-card .card-tags .tag { color: mix(#fff, $student-color, 60%); }
+.faculty-card .card-tags .tag { color: mix(#fff, $faculty-color, 60%); }
+
+// ── UI Elements (Arrows & Checks) ──────────────────────
 .card-arrow {
   position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 32px;
-  height: 32px;
-  color: #ccc;
+  bottom: 32px;
+  right: 32px;
+  color: $text-secondary;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  svg { 
-    width: 20px !important; // Forces the arrow to stay small
-    height: 20px !important; 
-    stroke-width: 2.5px;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+
+  svg {
+    width: 20px !important;
+    height: 20px !important;
+    stroke-width: 2px;
   }
+}
+
+.role-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(4px);
 }
 
 .card-check {
   position: absolute;
-  bottom: 24px;
-  right: 24px;
+  bottom: 32px;
+  right: 32px;
   width: 28px;
   height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  
-  svg { width: 14px; height: 14px; color: white; stroke-width: 3px; }
+  animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+  svg { width: 14px; height: 14px; color: $bg-main; stroke-width: 3px; }
 }
 
 .student-card .card-check { background: $student-color; }
 .faculty-card .card-check { background: $faculty-color; }
 
 @keyframes pop {
-  from { transform: scale(0); }
-  to { transform: scale(1); }
+  0% { transform: scale(0); opacity: 0; }
+  80% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 // ── Action Button ───────────────────────────────────────
@@ -218,39 +285,80 @@ $border:        rgba(0,0,0,0.08);
   margin-top: 48px;
   text-align: center;
   opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  &.visible { opacity: 1; transform: translateY(0); }
+  transform: translateY(15px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none; // Prevent clicking when hidden
+  height: 56px; // Reserve space
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 }
 
 .continue-btn {
   background: $student-color;
-  color: white;
+  color: $bg-main;
   border: none;
-  padding: 16px 36px;
-  border-radius: 12px;
+  padding: 0 40px;
+  height: 56px;
+  border-radius: 16px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px $student-glow;
 
-  &.faculty-btn { background: $faculty-color; }
-  
-  svg { width: 18px; height: 18px; }
-  &:hover { filter: brightness(0.9); transform: scale(1.02); }
-  &:active { transform: scale(0.98); }
+  &.faculty-btn {
+    background: $faculty-color;
+    box-shadow: 0 8px 20px $faculty-glow;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    svg { transform: translateX(4px); }
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
 }
 
-.action-hint { font-size: 12px; color: $neutral-500; margin-top: 12px; font-weight: 300; }
-
+// ── Footer Styles ───────────────────────────────────────
 .footer {
+  position: relative;
+  z-index: 1;
+  padding: 32px 24px;
+  margin-top: auto; // Pushes footer to the very bottom if content is short
   text-align: center;
-  padding: 24px;
+}
+
+.footer-content {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: $neutral-500;
-  .dot { margin: 0 8px; opacity: 0.3; }
+  color: rgba(255, 255, 255, 0.3); // Muted for dark theme
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  // If you are still on the Light theme, use this color instead:
+  // color: #888780;
+
+  .dot {
+    opacity: 0.5;
+    font-size: 14px;
+  }
 }

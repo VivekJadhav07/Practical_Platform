@@ -1,0 +1,45 @@
+<div class="result-page">
+  <header class="result-header">
+    <h2>Result</h2>
+  </header>
+
+  <div class="card summary-card">
+    <div class="score-circle">
+      <span class="score-value">{{ resultData.score }}</span>
+      <span class="score-max">/ {{ resultData.maxScore }}</span>
+    </div>
+
+    <div class="summary-details">
+      <h3>{{ resultData.title }}</h3>
+      <div class="meta-info">
+        <span>{{ resultData.category }}</span> &middot;
+        <span>{{ resultData.language }}</span> &middot;
+        <span>{{ resultData.submittedAt }}</span>
+      </div>
+      <div class="summary-badges">
+        <span class="badge badge-success">{{ resultData.testsPassed }} / {{ resultData.totalTests }} tests passed</span>
+        <span class="badge badge-warning" *ngIf="resultData.edgeCasesMissed > 0">{{ resultData.edgeCasesMissed }} edge case missed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="test-cases-section">
+    <h4 class="section-title">Test case results</h4>
+
+    <div class="test-case-row" *ngFor="let tc of testCases">
+      <div class="tc-left">
+        <span class="status-dot" [ngClass]="tc.status.toLowerCase()"></span>
+        <span class="tc-name">{{ tc.name }}</span>
+      </div>
+      <div class="tc-right">
+        <span class="tc-details">{{ tc.details }}</span>
+        <span class="tc-pill" [ngClass]="tc.status.toLowerCase()">{{ tc.status }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card feedback-card">
+    <div class="feedback-header">AI FEEDBACK</div>
+    <div class="feedback-content" [innerHTML]="resultData.feedback"></div>
+  </div>
+</div>

@@ -1,0 +1,224 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-card); /* Theme Variable */
+  border-radius: 12px;
+  padding: 12px 24px;
+  box-shadow: 0 4px 20px var(--shadow-color); /* Theme Variable */
+  border: 1px solid var(--border-color); /* Theme Variable */
+  font-family: 'Inter', sans-serif;
+  margin: 16px;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+
+  /* Mobile: tighter padding */
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+  }
+}
+
+/* Left Side: Brand */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 32px;
+  border-right: 1px solid var(--border-color);
+
+  /* Mobile: remove borders and extra padding */
+  @media (max-width: 768px) {
+    padding-right: 0;
+    border-right: none;
+    gap: 8px;
+  }
+
+  .logo-icon {
+    width: 26px;
+    height: 26px;
+    svg { width: 100%; height: 100%; }
+  }
+
+  .brand-text {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    strong { font-weight: 700; color: var(--text-heading); }
+
+    /* Optional: Hide text on extremely tiny screens (like old iPhone SE) */
+    @media (max-width: 380px) {
+      display: none;
+    }
+  }
+}
+
+/* Right Side: Actions */
+.actions-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  /* Mobile: tighten gap between icons */
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+}
+
+/* Search Bar */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--surface-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 280px;
+  transition: border-color 0.2s, background-color 0.3s;
+
+  /* MOBILE FIX: Hide search bar completely to save space */
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  &:focus-within {
+    border-color: var(--color-primary);
+  }
+
+  .search-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    margin-right: 10px;
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    width: 100%;
+
+    &::placeholder { color: var(--text-muted); }
+  }
+}
+
+/* Icons & Buttons */
+.action-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+
+  .bell-icon { width: 20px; height: 20px; color: var(--icon-color); transition: color 0.3s; }
+
+  &:hover .bell-icon { color: var(--color-primary); }
+
+  .notification-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--surface-card); /* Match card background */
+  }
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 4px;
+
+  .icon { width: 18px; height: 18px; transition: color 0.2s; }
+
+  /* Default Light Mode State */
+  .sun-icon { color: var(--icon-color); }
+  .moon-icon { color: var(--icon-muted); }
+
+  /* Dark Mode State via active class */
+  &.active-dark {
+    .sun-icon { color: var(--icon-muted); }
+    .moon-icon { color: var(--icon-color); }
+  }
+
+  &:hover .icon { color: var(--color-primary); }
+}
+
+/* Layout Elements */
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-color);
+
+  /* MOBILE FIX: Hide divider */
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+/* Profile Widget */
+.profile-widget {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+    background: var(--avatar-bg);
+    color: var(--avatar-text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+
+    /* Mobile: slightly smaller avatar */
+    @media (max-width: 768px) {
+      width: 36px;
+      height: 36px;
+      font-size: 0.85rem;
+    }
+  }
+
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+
+    /* MOBILE FIX: Hide all profile text */
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    .name { font-size: 0.9rem; font-weight: 600; color: var(--text-heading); line-height: 1.2; }
+
+    .role { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+
+      .pin-icon { width: 10px; height: 10px; }
+    }
+  }
+}

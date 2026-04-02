@@ -1,0 +1,124 @@
+/* --- SKELETON PALETTE (Matched to your dark theme) --- */
+$bg-main: #0a0a0c;       /* Dark background */
+$skel-base: #1c1c22;     /* Base color of placeholder blocks */
+$skel-shine: #2d2d35;    /* Highlight color of the shimmer */
+
+:host {
+  display: block;
+  width: 100vw;
+  height: 100dvh;
+  background-color: $bg-main;
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  font-family: sans-serif;
+}
+
+.skeleton-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 5%;
+}
+
+/* --- THE SHIMMER ANIMATION --- */
+.shimmer-box {
+  background: $skel-base;
+  background-image: linear-gradient(
+    90deg,
+    $skel-base 0px,
+    $skel-shine 50%,
+    $skel-base 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* --- NAVBAR --- */
+.skeleton-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+
+  .logo-skel { width: 180px; height: 30px; }
+
+  .nav-links-skel {
+    display: flex;
+    gap: 30px;
+    @media (max-width: 768px) { display: none; } /* Hide links on mobile */
+    .nav-item { width: 80px; height: 16px; }
+  }
+
+  .btn-skel-small { width: 120px; height: 40px; border-radius: 20px; }
+}
+
+/* --- HERO SECTION --- */
+.skeleton-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5vh; /* Center balance */
+
+  .hero-title { width: 60%; height: 60px; margin-bottom: 20px; border-radius: 10px; }
+  .hero-subtitle { width: 40%; height: 24px; margin-bottom: 40px; }
+
+  .hero-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+
+    .pill-btn { width: 150px; height: 45px; border-radius: 25px; }
+    .main-action { width: 130px; height: 45px; border-radius: 25px; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title { width: 90%; height: 45px; }
+    .hero-subtitle { width: 70%; }
+  }
+}
+
+/* --- FLEET CARDS GRID --- */
+.skeleton-fleet {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+
+  @media (max-width: 1024px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    .hidden-mobile { display: none; }
+  }
+}
+
+.skeleton-card {
+  background-color: #121216; /* Slightly lighter than main bg */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #1f1f25;
+
+  .card-img { width: 100%; height: 180px; border-radius: 0; }
+
+  .card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .title-line { width: 70%; height: 24px; }
+    .subtitle-line { width: 50%; height: 14px; }
+    .desc-line { width: 90%; height: 14px; margin-bottom: 15px; }
+    .card-btn { width: 100%; height: 40px; border-radius: 8px; margin-top: auto; }
+  }
+}

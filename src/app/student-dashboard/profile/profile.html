@@ -1,0 +1,108 @@
+<div class="profile-container">
+  <header class="profile-header">
+    <div class="header-content">
+      <h2>My Profile</h2>
+      <span class="date-badge">Academic Year 2024-2025</span>
+    </div>
+  </header>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading your academic profile...</p>
+  </div>
+
+  <div class="profile-grid" *ngIf="!isLoading" [@listAnimation]>
+
+    <div class="info-column">
+
+      <article class="card user-main-card">
+        <div class="card-background-accent"></div>
+        <div class="avatar-large">{{ userData.initials }}</div>
+        <h3 class="user-name">{{ userData.name }}</h3>
+        <p class="user-subtitle">
+          <span class="role-badge">{{ userData.role }}</span>
+          <span class="dot">&bull;</span> {{ userData.branch }}
+          <span class="dot">&bull;</span> {{ userData.batch }}
+        </p>
+
+        <div class="detail-list">
+          <div class="detail-item">
+            <span class="label">Roll No</span>
+            <span class="value">{{ userData.rollNo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Email</span>
+            <a href="mailto:{{ userData.email }}" class="value link">{{ userData.email }}</a>
+          </div>
+          <div class="detail-item">
+            <span class="label">Division</span>
+            <span class="value">{{ userData.division }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Year</span>
+            <span class="value">{{ userData.year }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Semester</span>
+            <span class="value">{{ userData.semester }}</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card performance-card">
+        <div class="card-header">
+          <h4 class="section-title">Performance Overview</h4>
+        </div>
+        <div class="perf-list">
+          <div class="perf-item" *ngFor="let p of performance">
+            <div class="perf-info">
+              <span class="perf-label">{{ p.label }}</span>
+              <span class="perf-score">{{ p.score }}<span class="total">/10</span></span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill"
+                   [style.width.%]="p.score * 10"
+                   [style.background-color]="p.color">
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section class="subjects-column">
+
+      <article class="subject-card" *ngFor="let s of subjects">
+        <div class="sub-icon" [style.background-color]="s.color + '15'" [style.color]="s.color">
+          <span class="material-icons-outlined">{{ s.icon }}</span>
+        </div>
+        <div class="sub-info">
+          <h4>{{ s.name }}</h4>
+          <p>
+            <span class="material-icons-outlined tiny-icon">person</span> {{ s.professor }}
+            <span class="dot">&bull;</span>
+            {{ s.practicals }} practicals
+          </p>
+        </div>
+        <div class="sub-score">
+          <span class="score-num">{{ s.avgScore }}</span>
+          <span class="score-label">Avg Score</span>
+        </div>
+      </article>
+
+      <article class="subject-card locked">
+        <div class="sub-icon"><span class="material-icons-outlined">lock</span></div>
+        <div class="sub-info">
+          <h4>OS Lab</h4>
+          <p>Curriculum not yet started</p>
+        </div>
+        <div class="sub-status">Enrolled</div>
+      </article>
+
+      <button class="join-btn" (click)="onJoinClassroom()">
+        <span class="material-icons-outlined btn-icon">add_circle_outline</span>
+        Join a new classroom
+      </button>
+    </section>
+  </div>
+</div>

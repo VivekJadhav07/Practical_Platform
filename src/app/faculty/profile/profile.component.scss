@@ -1,113 +1,184 @@
-.practicals-container {
+.profile-container {
   animation: slideUp 0.4s ease;
+  max-width: 800px;
+  margin: 0 auto; /* Centers the profile card on large screens */
 }
 
-.header-flex {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: flex-start; 
-  margin-bottom: 32px;
-  
-  .section-sub { 
-    font-size: 13px; 
-    color: var(--text-secondary); // Light grey in light mode, lighter grey in dark
-    margin-top: 4px; 
-  }
-}
-
-.prac-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.prac-card {
-  background: var(--surface-card); // Yeh switch karega light/dark mein
-  border-radius: 20px; 
+.profile-card {
+  background: var(--bg-surface);
+  border-radius: 20px;
   border: 1px solid var(--border-color);
-  padding: 24px; 
-  transition: all 0.3s ease;
-  
-  &:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 12px 25px var(--shadow-color); 
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+
+  @media (max-width: 768px) {
+    padding: 24px;
   }
 }
 
-.prac-header {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 16px;
-  
-  .type-badge {
-    font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
-    &[data-type="Code"] { background: #E1F5EE; color: #1D9E75; }
-    &[data-type="Theory"] { background: var(--color-primary-light); color: var(--color-primary); }
-  }
+/* --- Profile Header --- */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 32px;
 
-  .difficulty {
-    font-size: 10px; font-weight: 600; text-transform: uppercase;
-    &.easy { color: #1D9E75; }
-    &.medium { color: #BA7517; }
-    &.hard { color: #A32D2D; }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
-.prac-title { 
-  font-size: 17px; 
-  font-weight: 600; 
-  color: var(--text-heading); // Black to White switch
-  margin-bottom: 8px; 
-}
+.avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
 
-.prac-desc { 
-  font-size: 13px; 
-  color: var(--text-secondary); 
-  line-height: 1.5; 
-  margin-bottom: 20px; 
-  height: 40px; 
-  overflow: hidden; 
-}
+  .avatar-lg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--color-primary-light, rgba(99, 102, 241, 0.1));
+    color: var(--color-primary, #6366f1);
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-color);
+  }
 
-.prac-meta {
-  display: flex; gap: 12px; margin-bottom: 24px;
-  .meta-tag { 
-    font-family: 'JetBrains Mono'; 
-    font-size: 11px; 
-    color: var(--text-primary); 
-    background: var(--surface-background); 
-    padding: 4px 8px; 
-    border-radius: 6px; 
+  .edit-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--bg-muted);
+      transform: scale(1.1);
+    }
   }
 }
 
-.prac-footer {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding-top: 16px; 
-  border-top: 1px solid var(--border-color);
-  
-  .outline-btn { 
-    background: none; 
-    border: 1px solid var(--border-color); 
+.header-info {
+  .user-fullname {
+    font-size: 24px;
+    font-weight: 700;
     color: var(--text-primary);
-    padding: 6px 14px; border-radius: 8px; 
-    font-size: 12px; cursor: pointer; 
-    &:hover { background: var(--surface-background); } 
+    margin: 0 0 8px 0;
   }
-  
-  .assign-link { 
-    background: none; border: none; 
-    color: var(--color-primary); 
-    font-weight: 600; font-size: 13px; 
-    cursor: pointer; text-decoration: none; 
-    &:hover { text-decoration: underline; } 
+
+  .user-role {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+    font-weight: 500;
+  }
+
+  .location-tag {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg-muted);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
   }
 }
 
-@keyframes slideUp { 
-  from { opacity: 0; transform: translateY(20px); } 
-  to { opacity: 1; transform: translateY(0); } 
+/* --- Information Grid --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.info-item {
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- Profile Footer --- */
+.profile-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .secondary-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+
+    &:hover {
+      background: var(--bg-muted);
+    }
+  }
+
+  .primary-btn {
+    background: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: #ffffff;
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* --- Animations --- */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

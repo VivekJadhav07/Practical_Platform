@@ -7,17 +7,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  
+
   .create-btn {
-    background: #534AB7;
-    color: white;
+    background: var(--color-primary);
+    color: #ffffff; /* Keep white for contrast against primary color */
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
     font-weight: 500;
     cursor: pointer;
     transition: 0.2s;
-    &:hover { background: #3C3489; transform: translateY(-2px); }
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
   }
 }
 
@@ -28,17 +32,17 @@
 }
 
 .class-card {
-  background: white;
+  background: var(--bg-surface);
   border-radius: 20px;
   padding: 24px;
-  border: 1px solid rgba(83, 74, 183, 0.1);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(83, 74, 183, 0.1);
-    border-color: rgba(83, 74, 183, 0.3);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-primary);
   }
 }
 
@@ -60,8 +64,8 @@
 
   .status-pill {
     font-size: 10px;
-    background: #EEEDFE;
-    color: #534AB7;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
     padding: 4px 10px;
     border-radius: 20px;
     font-weight: 600;
@@ -69,32 +73,63 @@
   }
 }
 
-.class-name { font-size: 18px; font-weight: 700; color: #1A1818; margin-bottom: 4px; }
-.class-sub { font-size: 13px; color: #9896B0; margin-bottom: 20px; }
+.class-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.class-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
 
 .class-stats {
   display: flex;
   gap: 32px;
   margin-bottom: 24px;
-  .stat-num { display: block; font-size: 18px; font-weight: 700; color: #1A1818; }
-  .stat-label { font-size: 11px; color: #9896B0; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .stat-num {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 }
 
 .progress-section {
   margin-bottom: 24px;
+
   .progress-meta {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     margin-bottom: 8px;
-    color: #524F6B;
+    color: var(--text-secondary);
+
     .percent { font-weight: 700; }
   }
+
   .progress-bar {
     height: 6px;
-    background: #F2F1F8;
+    background: var(--bg-muted);
     border-radius: 10px;
-    .progress-fill { height: 100%; border-radius: 10px; transition: width 1s ease-in-out; }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-primary); /* Assuming the fill should be your brand color */
+      border-radius: 10px;
+      transition: width 1s ease-in-out;
+    }
   }
 }
 
@@ -103,45 +138,61 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 20px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-light);
 
   .code-badge {
-    background: #F2F1F8;
+    background: var(--bg-muted);
     padding: 6px 12px;
     border-radius: 8px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     cursor: copy;
-    .code-label { color: #9896B0; margin-right: 4px; }
-    .code-value { color: #534AB7; font-weight: 600; }
-    &:hover { background: #EEEDFE; }
+    transition: background 0.2s ease;
+
+    .code-label { color: var(--text-muted); margin-right: 4px; }
+    .code-value { color: var(--color-primary); font-weight: 600; }
+
+    &:hover { background: var(--color-primary-light); }
   }
 
-  .view-btn { border: none; background: transparent; color: #534AB7; font-weight: 600; font-size: 13px; cursor: pointer; }
+  .view-btn {
+    border: none;
+    background: transparent;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
 }
 
 .add-card {
-  border: 2px dashed rgba(83, 74, 183, 0.2);
+  border: 2px dashed var(--border-color);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #9896B0;
+  color: var(--text-muted);
   transition: all 0.2s;
   cursor: pointer;
   min-height: 300px;
+  background: transparent;
 
   .add-icon { font-size: 40px; margin-bottom: 12px; }
-  p { font-weight: 600; color: #524F6B; }
+
+  p { font-weight: 600; color: var(--text-secondary); }
   span { font-size: 12px; }
 
   &:hover {
-    background: #EEEDFE;
-    border-color: #534AB7;
-    color: #534AB7;
-    p { color: #534AB7; }
+    background: var(--color-primary-light);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+
+    p { color: var(--color-primary); }
   }
 }
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

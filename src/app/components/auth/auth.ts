@@ -64,14 +64,14 @@ export class AuthComponent implements OnInit {
       // Email: vivek@ycce.edu | Pass: faculty123
       if (email === 'vivek@ycce.edu' && password === 'faculty123') {
         console.log('Faculty Login Success!');
-        
+
         // Modal band karo
         this.closeModal();
 
         // NAVIGATE TO FACULTY DASHBOARD
         // Ensure aapne routing mein path 'faculty/dashboard' ya sirf 'faculty' rakha ho
-        this.router.navigate(['/faculty/dashboard']); 
-        
+        this.router.navigate(['/faculty/dashboard']);
+
       } else {
         alert('Invalid Faculty Credentials! \nEmail: vivek@ycce.edu\nPass: faculty123');
       }

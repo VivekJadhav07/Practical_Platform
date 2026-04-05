@@ -4,7 +4,7 @@ export const routes: Routes = [
   // 1. LANDING PAGE (Entry point)
   {
     path: '',
-    loadComponent: () => 
+    loadComponent: () =>
       import('./landing/landing').then(m => m.LandingComponent)
   },
 
@@ -16,33 +16,33 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./student-dashboard/home/home').then(m => m.HomeComponent)
       },
-      { 
+      {
         path: 'Practicals',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./student-dashboard/praticals/praticals').then(m => m.PracticalsComponent)
       },
       {
         path: 'solve',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./student-dashboard/solve/solve').then(m => m.SolveComponent)
       },
       {
         path: 'results',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./student-dashboard/result/result').then(m => m.ResultComponent)
       },
       {
         path: 'profile',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./student-dashboard/profile/profile').then(m => m.ProfileComponent)
       },
-      { 
-        path: '', 
-        redirectTo: 'home', 
-        pathMatch: 'full' 
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
       }
     ]
   },
@@ -50,33 +50,33 @@ export const routes: Routes = [
   // 3. FACULTY DASHBOARD UNIVERSE (Purple Theme)
   {
     path: 'faculty',
-    loadComponent: () => 
+    loadComponent: () =>
       import('./faculty/layout/layout').then(m => m.LayoutComponent),
     children: [
       {
         path: 'dashboard',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./faculty/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
         path: 'classrooms',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./faculty/classrooms/classrooms').then(m => m.Classrooms)
       },
       {
         path: 'assign-practical',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./faculty/assign-practical/assign-practical').then(m => m.AssignPractical)
       },
       {
         path: 'results',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./faculty/results/results').then(m => m.Results)
       },
-      { 
-        path: '', 
-        redirectTo: 'dashboard', 
-        pathMatch: 'full' 
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       },
       {
   path: 'practicals',

@@ -1,3 +1,4 @@
+@use "sass:color";
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 // ── Variables (Premium Dark Mode) ───────────────────────
@@ -198,11 +199,9 @@ $faculty-bg: rgba(167, 139, 250, 0.1);
   justify-content: center;
 
   svg { width: 28px; height: 28px; }
-}
-
-.student-card .card-icon-wrap { background: $student-bg; color: $student-color; }
-.faculty-card .card-icon-wrap { background: $faculty-bg; color: $faculty-color; }
-
+      }
+        .student-card .card-tags .tag { color: color.mix(#fff, $student-color, 60%); }
+        .faculty-card .card-tags .tag { color: color.mix(#fff, $faculty-color, 60%); }
 .card-body {
   display: flex;
   flex-direction: column;

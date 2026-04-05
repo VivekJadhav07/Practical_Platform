@@ -1,7 +1,7 @@
 <div class="faculty-theme">
   <div class="app-shell">
-    
-    <aside class="sidebar">
+
+    <aside class="sidebar desktop-only">
       <div class="sidebar-logo">
         <span class="icon">💠</span>
         <span class="logo-text">PracticalHub</span>
@@ -26,20 +26,24 @@
       </nav>
 
       <div class="sidebar-footer">
-        <div class="theme-switch-row">
-          <button [class.active]="!isDarkMode" (click)="setTheme('light')">☀️</button>
-          <button [class.active]="isDarkMode" (click)="setTheme('dark')">🌙</button>
-        </div>
         <div class="logout" routerLink="/">🚪 Sign out</div>
       </div>
     </aside>
 
     <main class="main-body">
+
       <header class="topbar">
-        <h2 class="page-title">Faculty Portal</h2>
+        <div class="mobile-logo mobile-only">
+          <span class="icon">💠</span> PracticalHub
+        </div>
+        <h2 class="page-title desktop-only">Faculty Portal</h2>
+
         <div class="top-actions">
-          <button class="notif-btn">🔔</button>
-          <button class="btn-primary" routerLink="assign-practical">+ New Practical</button>
+          <button class="icon-btn theme-toggle" (click)="setTheme(isDarkMode ? 'light' : 'dark')">
+            {{ isDarkMode ? '🌙' : '☀️' }}
+          </button>
+          <button class="icon-btn notif-btn">🔔</button>
+          <button class="btn-primary desktop-only" routerLink="assign-practical">+ New</button>
         </div>
       </header>
 
@@ -47,6 +51,46 @@
         <router-outlet></router-outlet>
       </div>
     </main>
+
+    <nav class="mobile-bottom-nav mobile-only">
+      <a class="m-nav-item" routerLink="dashboard" routerLinkActive="active">
+        <span class="m-icon">📊</span>
+        <span class="m-text">Home</span>
+      </a>
+      <a class="m-nav-item" routerLink="classrooms" routerLinkActive="active">
+        <span class="m-icon">🏫</span>
+        <span class="m-text">Classes</span>
+      </a>
+      <a class="m-nav-item" routerLink="practicals" routerLinkActive="active">
+        <span class="m-icon">📄</span>
+        <span class="m-text">Practicals</span>
+      </a>
+      <a class="m-nav-item" routerLink="profile" routerLinkActive="active">
+        <span class="m-icon">👤</span>
+        <span class="m-text">Profile</span>
+      </a>
+      <button class="m-nav-item more-btn" (click)="toggleMobileMenu()">
+        <span class="m-icon">⋮</span>
+        <span class="m-text">More</span>
+      </button>
+    </nav>
+
+    <div class="mobile-more-menu" [class.open]="isMobileMenuOpen">
+      <div class="menu-overlay" (click)="toggleMobileMenu()"></div>
+      <div class="menu-sheet">
+        <div class="sheet-header">
+          <h3>More Options</h3>
+          <button class="close-btn" (click)="toggleMobileMenu()">✕</button>
+        </div>
+        <div class="sheet-links">
+          <a class="sheet-item" routerLink="assign-practical">⊕ Assign Practical</a>
+          <a class="sheet-item" routerLink="students">👥 Students</a>
+          <a class="sheet-item" routerLink="results">📉 Results</a>
+          <div class="divider"></div>
+          <a class="sheet-item text-danger" routerLink="/">🚪 Sign out</a>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>

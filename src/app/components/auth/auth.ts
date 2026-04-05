@@ -21,13 +21,14 @@ export class AuthComponent implements OnInit {
   facultyForm!: FormGroup;
 
   ngOnInit(): void {
-    // STUDENT FORM: Must have email, password, AND classroomCode to match HTML
+    // STUDENT FORM
     this.studentForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       classroomCode: ['', [Validators.required]]
     });
 
+    // FACULTY FORM
     this.facultyForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -42,14 +43,13 @@ export class AuthComponent implements OnInit {
     if (this.studentForm.valid) {
       const { email, password, classroomCode } = this.studentForm.value;
 
-      // Checking for your specific credentials
+      // Student Demo Credentials
       if (email === 'name@gmail.com' && password === 'pass@123' && classroomCode === 'AAAA') {
-        console.log('Login Success!');
+        console.log('Student Login Success!');
         this.closeModal();
-        // Use the route path exactly as defined in your app.routes.ts
         this.router.navigate(['/student/home']);
       } else {
-        alert('Invalid Credentials! \nEmail: name@gmail.com\nPass: pass@123\nCode: AAAA');
+        alert('Invalid Student Credentials!');
       }
     } else {
       this.studentForm.markAllAsTouched();
@@ -58,8 +58,25 @@ export class AuthComponent implements OnInit {
 
   onFacultySubmit() {
     if (this.facultyForm.valid) {
-      this.closeModal();
-      // this.router.navigate(['/faculty/home']);
+      const { email, password } = this.facultyForm.value;
+
+      // FACULTY DEMO CREDENTIALS
+      // Email: vivek@ycce.edu | Pass: faculty123
+      if (email === 'vivek@ycce.edu' && password === 'faculty123') {
+        console.log('Faculty Login Success!');
+        
+        // Modal band karo
+        this.closeModal();
+
+        // NAVIGATE TO FACULTY DASHBOARD
+        // Ensure aapne routing mein path 'faculty/dashboard' ya sirf 'faculty' rakha ho
+        this.router.navigate(['/faculty/dashboard']); 
+        
+      } else {
+        alert('Invalid Faculty Credentials! \nEmail: vivek@ycce.edu\nPass: faculty123');
+      }
+    } else {
+      this.facultyForm.markAllAsTouched();
     }
   }
 }

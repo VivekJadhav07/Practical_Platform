@@ -1,0 +1,52 @@
+<div class="faculty-theme">
+  <div class="app-shell">
+    
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="icon">💠</span>
+        <span class="logo-text">PracticalHub</span>
+      </div>
+
+      <div class="sidebar-user">
+        <div class="avatar">VP</div>
+        <div class="info">
+          <p class="name">Prof. Vivek</p>
+          <p class="dept">Faculty · CS Dept</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <div class="nav-label">MAIN</div>
+        <a class="nav-item" routerLink="dashboard" routerLinkActive="active">📊 Dashboard</a>
+        <a class="nav-item" routerLink="classrooms" routerLinkActive="active">🏫 Classrooms <span class="badge">3</span></a>
+        <a class="nav-item" routerLink="practicals" routerLinkActive="active">📄 Practicals</a>
+        <a class="nav-item" routerLink="assign-practical" routerLinkActive="active">⊕ Assign</a>
+        <a class="nav-item" routerLink="students" routerLinkActive="active">👥 Students</a>
+        <a class="nav-item" routerLink="results" routerLinkActive="active">📉 Results</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="theme-switch-row">
+          <button [class.active]="!isDarkMode" (click)="setTheme('light')">☀️</button>
+          <button [class.active]="isDarkMode" (click)="setTheme('dark')">🌙</button>
+        </div>
+        <div class="logout" routerLink="/">🚪 Sign out</div>
+      </div>
+    </aside>
+
+    <main class="main-body">
+      <header class="topbar">
+        <h2 class="page-title">Faculty Portal</h2>
+        <div class="top-actions">
+          <button class="notif-btn">🔔</button>
+          <button class="btn-primary" routerLink="assign-practical">+ New Practical</button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+  </div>
+</div>

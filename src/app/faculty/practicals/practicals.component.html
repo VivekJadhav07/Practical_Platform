@@ -1,0 +1,35 @@
+<div class="practicals-container">
+  <div class="header-flex">
+    <div class="title-group">
+      <h3 class="section-title">Subject Syllabus</h3>
+      <p class="section-sub">Manage and browse available experiments for your classes.</p>
+    </div>
+    <button class="primary-btn">+ Add New Practical</button>
+  </div>
+
+  <div class="prac-grid">
+    <div class="prac-card" *ngFor="let p of practicals">
+      <div class="prac-header">
+        <div class="type-badge" [attr.data-type]="p.type">
+          {{p.type === 'Code' ? '💻 Code' : '📝 Theory'}}
+        </div>
+        <span class="difficulty" [class]="p.difficulty.toLowerCase()">{{p.difficulty}}</span>
+      </div>
+
+      <div class="prac-body">
+        <h4 class="prac-title">{{p.title}}</h4>
+        <p class="prac-desc">{{p.description}}</p>
+        
+        <div class="prac-meta">
+          <span class="meta-tag"><i class="icon">lang</i> {{p.language}}</span>
+          <span class="meta-tag"><i class="icon">test</i> {{p.testCases}} Test Cases</span>
+        </div>
+      </div>
+
+      <div class="prac-footer">
+        <button class="outline-btn">Edit Details</button>
+        <button class="assign-link" routerLink="/faculty/assign-practical">Assign to Class →</button>
+      </div>
+    </div>
+  </div>
+</div>

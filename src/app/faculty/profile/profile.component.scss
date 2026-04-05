@@ -1,0 +1,113 @@
+.practicals-container {
+  animation: slideUp 0.4s ease;
+}
+
+.header-flex {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start; 
+  margin-bottom: 32px;
+  
+  .section-sub { 
+    font-size: 13px; 
+    color: var(--text-secondary); // Light grey in light mode, lighter grey in dark
+    margin-top: 4px; 
+  }
+}
+
+.prac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.prac-card {
+  background: var(--surface-card); // Yeh switch karega light/dark mein
+  border-radius: 20px; 
+  border: 1px solid var(--border-color);
+  padding: 24px; 
+  transition: all 0.3s ease;
+  
+  &:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 12px 25px var(--shadow-color); 
+  }
+}
+
+.prac-header {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 16px;
+  
+  .type-badge {
+    font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+    &[data-type="Code"] { background: #E1F5EE; color: #1D9E75; }
+    &[data-type="Theory"] { background: var(--color-primary-light); color: var(--color-primary); }
+  }
+
+  .difficulty {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    &.easy { color: #1D9E75; }
+    &.medium { color: #BA7517; }
+    &.hard { color: #A32D2D; }
+  }
+}
+
+.prac-title { 
+  font-size: 17px; 
+  font-weight: 600; 
+  color: var(--text-heading); // Black to White switch
+  margin-bottom: 8px; 
+}
+
+.prac-desc { 
+  font-size: 13px; 
+  color: var(--text-secondary); 
+  line-height: 1.5; 
+  margin-bottom: 20px; 
+  height: 40px; 
+  overflow: hidden; 
+}
+
+.prac-meta {
+  display: flex; gap: 12px; margin-bottom: 24px;
+  .meta-tag { 
+    font-family: 'JetBrains Mono'; 
+    font-size: 11px; 
+    color: var(--text-primary); 
+    background: var(--surface-background); 
+    padding: 4px 8px; 
+    border-radius: 6px; 
+  }
+}
+
+.prac-footer {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding-top: 16px; 
+  border-top: 1px solid var(--border-color);
+  
+  .outline-btn { 
+    background: none; 
+    border: 1px solid var(--border-color); 
+    color: var(--text-primary);
+    padding: 6px 14px; border-radius: 8px; 
+    font-size: 12px; cursor: pointer; 
+    &:hover { background: var(--surface-background); } 
+  }
+  
+  .assign-link { 
+    background: none; border: none; 
+    color: var(--color-primary); 
+    font-weight: 600; font-size: 13px; 
+    cursor: pointer; text-decoration: none; 
+    &:hover { text-decoration: underline; } 
+  }
+}
+
+@keyframes slideUp { 
+  from { opacity: 0; transform: translateY(20px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}

@@ -1,0 +1,76 @@
+<div class="assign-container">
+  <div class="assign-layout">
+    
+    <div class="syllabus-section">
+      <div class="section-header">
+        <h3 class="section-title">Select from Syllabus</h3>
+        <div class="filter-pills">
+          <span class="pill active">All</span>
+          <span class="pill">Code</span>
+          <span class="pill">SQL</span>
+          <span class="pill">Theory</span>
+        </div>
+      </div>
+
+      <div class="syllabus-list">
+        <div class="syllabus-item" 
+             *ngFor="let item of syllabus" 
+             [class.selected]="selectedItem?.id === item.id"
+             (click)="selectItem(item)">
+          <div class="item-check" [class.checked]="selectedItem?.id === item.id">
+            <svg *ngIf="selectedItem?.id === item.id" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div class="item-info">
+            <p class="item-name">{{item.title}}</p>
+            <span class="item-meta">{{item.category}} · {{item.language}}</span>
+          </div>
+          <div class="item-type-tag" [attr.data-type]="item.type">{{item.type}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="card config-card">
+        <h3 class="card-title">Assignment Settings</h3>
+        
+        <div class="form-group">
+          <label class="label">Assign to Classroom</label>
+          <select class="input-select">
+            <option>Data Structures — Div B</option>
+            <option>DBMS — Div A</option>
+            <option>Computer Networks — Div A</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="label">Due Date</label>
+            <input type="date" class="input-field" value="2026-04-10">
+          </div>
+          <div class="form-group">
+            <label class="label">Total Marks</label>
+            <input type="number" class="input-field" value="10">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Instructions (Optional)</label>
+          <textarea class="input-area" rows="4" placeholder="Add specific requirements for students..."></textarea>
+        </div>
+
+        <div class="auto-grade-notice" *ngIf="selectedItem?.type === 'Code'">
+          <div class="notice-icon">🤖</div>
+          <div class="notice-text">
+            <p><strong>Auto-Grading Enabled</strong></p>
+            <span>Judge0 will run test cases: {{selectedItem?.testCases}} cases found.</span>
+          </div>
+        </div>
+
+        <button class="submit-btn" [disabled]="!selectedItem" (click)="assignPractical()">
+          Assign to Class Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="students-container">
+  <div class="page-header">
+    <div class="search-area">
+      <span class="icon">🔍</span>
+      <input type="text" placeholder="Search student name or roll no...">
+    </div>
+    <button class="export-btn">↓ Export List</button>
+  </div>
+
+  <div class="table-card">
+    <table class="students-table">
+      <thead>
+        <tr>
+          <th>STUDENT</th>
+          <th>ROLL NO</th>
+          <th>AVG SCORE</th>
+          <th>COMPLETED</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of students">
+          <td>
+            <div class="user-cell">
+              <div class="avatar-sm" [style.background]="s.color">{{s.initials}}</div>
+              <div class="user-details">
+                <span class="user-name">{{s.name}}</span>
+              </div>
+            </div>
+          </td>
+          <td class="mono-text">{{s.roll}}</td>
+          <td class="score-cell">{{s.avg}}/10</td>
+          <td>
+            <div class="progress-box">
+              <span class="progress-num">{{s.done}}/{{s.total}}</span>
+              <div class="mini-bar">
+                <div class="fill" [style.width.%]="(s.done/s.total)*100"></div>
+              </div>
+            </div>
+          </td>
+          <td><span class="status-pill">Active</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

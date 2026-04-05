@@ -1,0 +1,58 @@
+<div class="results-container">
+  <div class="results-header">
+    <div class="selector-group">
+      <label class="lbl">Viewing Results For:</label>
+      <select class="input-select">
+        <option>Binary Search Implementation (Data Structures)</option>
+        <option>Linked List Operations</option>
+      </select>
+    </div>
+    <button class="export-btn">📊 Export CSV</button>
+  </div>
+
+  <div class="summary-stats">
+    <div class="summary-card">
+      <span class="lbl">Submissions</span>
+      <h2 class="val purple">28/32</h2>
+      <div class="progress-mini"><div class="fill" style="width: 87%"></div></div>
+    </div>
+    <div class="summary-card">
+      <span class="lbl">Class Average</span>
+      <h2 class="val">8.4/10</h2>
+    </div>
+    <div class="summary-card">
+      <span class="lbl">Auto-Pass Rate</span>
+      <h2 class="val green">75%</h2>
+    </div>
+  </div>
+
+  <div class="gradebook-card">
+    <table class="gradebook-table">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Roll No</th>
+          <th>Status</th>
+          <th>Tests Passed</th>
+          <th>Score</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of students">
+          <td>
+            <div class="stu-cell">
+              <div class="stu-avatar">{{s.name.substring(0,2)}}</div>
+              {{s.name}}
+            </div>
+          </td>
+          <td>{{s.roll}}</td>
+          <td><span class="status-badge" [attr.data-status]="s.status">{{s.status}}</span></td>
+          <td>{{s.tests}}</td>
+          <td><span class="score-text" [class.low]="s.score < 5">{{s.score}}/10</span></td>
+          <td><button class="view-code-link">View Code</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

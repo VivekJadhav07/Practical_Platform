@@ -1,0 +1,57 @@
+<div class="classrooms-container">
+  <div class="header-actions">
+    <h3 class="section-title">My Active Classrooms</h3>
+    <button class="create-btn" (click)="openCreateModal()">+ Create New</button>
+  </div>
+
+  <div class="class-grid">
+    <div class="class-card" *ngFor="let cls of classrooms" (click)="viewClass(cls.id)">
+      <div class="class-header">
+        <div class="class-icon" [style.background]="cls.colorLight">
+          <span [style.color]="cls.color">{{cls.icon}}</span>
+        </div>
+        <span class="status-pill">Active</span>
+      </div>
+
+      <div class="class-info">
+        <h2 class="class-name">{{cls.name}}</h2>
+        <p class="class-sub">{{cls.semester}} · {{cls.dept}}</p>
+      </div>
+
+      <div class="class-stats">
+        <div class="stat-item">
+          <span class="stat-num">{{cls.students}}</span>
+          <span class="stat-label">Students</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">{{cls.practicals}}</span>
+          <span class="stat-label">Practicals</span>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-meta">
+          <span>Syllabus Progress</span>
+          <span class="percent">{{cls.progress}}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="cls.progress" [style.background]="cls.color"></div>
+        </div>
+      </div>
+
+      <div class="class-footer">
+        <div class="code-badge" (click)="$event.stopPropagation(); copyCode(cls.code)">
+          <span class="code-label">CODE:</span>
+          <span class="code-value">{{cls.code}}</span>
+        </div>
+        <button class="view-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="add-card" (click)="openCreateModal()">
+      <div class="add-icon">＋</div>
+      <p>Create New Classroom</p>
+      <span>Set up a new batch & syllabus</span>
+    </div>
+  </div>
+</div>

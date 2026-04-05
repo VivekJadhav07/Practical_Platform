@@ -1,0 +1,82 @@
+<div class="dashboard-wrapper">
+  <div class="greeting-header">
+    <p class="current-date">Wednesday, 01 April 2026</p>
+    <h1 class="welcome-msg">Good morning, <span class="highlight">Prof. Vivek</span></h1>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <span class="label">CLASSROOMS</span>
+      <div class="value">3</div>
+      <p class="sub-text">active this semester</p>
+    </div>
+    <div class="stat-card">
+      <span class="label">TOTAL STUDENTS</span>
+      <div class="value">87</div>
+      <p class="sub-text">across all classes</p>
+    </div>
+    <div class="stat-card">
+      <span class="label">PRACTICALS ASSIGNED</span>
+      <div class="value success">24</div>
+      <p class="sub-text">this semester</p>
+    </div>
+    <div class="stat-card">
+      <span class="label">PENDING REVIEW</span>
+      <div class="value warning">12</div>
+      <p class="sub-text">submissions today</p>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    
+    <div class="overview-section">
+      <div class="section-title-bar">
+        <h3>Class overview</h3>
+        <a routerLink="/faculty/classrooms" class="link-all">View all →</a>
+      </div>
+
+      <div class="class-list">
+        <div class="class-item-card" *ngFor="let cls of classes">
+          <div class="card-main-info">
+            <div class="icon-box">
+              <span class="icon">{{cls.icon}}</span>
+            </div>
+            <div class="text-info">
+              <h4>{{cls.name}}</h4>
+              <span>{{cls.students}} students · {{cls.practicals}} practicals</span>
+            </div>
+            <span class="active-badge">Active</span>
+          </div>
+          
+          <div class="progress-container">
+            <div class="progress-labels">
+              <span>{{cls.assigned}}/{{cls.total}} assigned</span>
+              <span class="pct">{{(cls.assigned/cls.total)*100}}%</span>
+            </div>
+            <div class="bar-background">
+              <div class="bar-fill" [style.width.%]="(cls.assigned/cls.total)*100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity-section">
+      <div class="section-title-bar">
+        <h3>Recent activity</h3>
+      </div>
+      
+      <div class="activity-white-card">
+        <div class="activity-row" *ngFor="let item of activities">
+          <div class="status-dot" [style.background]="item.color"></div>
+          <div class="activity-content">
+            <p><strong>{{item.student}}</strong> {{item.action}}</p>
+            <span class="meta">{{item.subject}} · {{item.meta}}</span>
+          </div>
+          <span class="time-stamp">{{item.time}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

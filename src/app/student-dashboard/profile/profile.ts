@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // Ensure Router is imported
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 
 @Component({
@@ -22,24 +23,20 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
   ]
 })
 export class ProfileComponent implements OnInit {
-  // Variables to hold our data
   isLoading: boolean = true;
   userData: any = null;
   subjects: any[] = [];
   performance: any[] = [];
 
-  constructor() {}
+  // 1. Move the Router injection to the main constructor
+  constructor(private router: Router) {}
 
-  // ngOnInit fires automatically as soon as the component loads
   ngOnInit(): void {
     this.fetchProfileData();
   }
 
-  // Simulating an automatic database fetch (e.g., from Firebase/Firestore)
   fetchProfileData() {
     this.isLoading = true;
-
-    // setTimeout simulates the network delay of an API call
     setTimeout(() => {
       this.userData = {
         name: 'Dnyaneshwar Nikam',
@@ -66,13 +63,18 @@ export class ProfileComponent implements OnInit {
         { label: 'Computer Networks', score: 9.0, color: '#0ea5e9' }
       ];
 
-      // Once data is loaded, remove the loading state to trigger the animation
       this.isLoading = false;
-    }, 800); // 800ms delay to make it feel like a real app
+    }, 800);
   }
 
   onJoinClassroom() {
-    // Logic for joining a new classroom
     console.log('Opening join classroom dialog...');
+  }
+
+  // 2. onSignOut should be its own method, not inside onJoinClassroom
+  onSignOut() {
+    console.log('Logging out from Profile...');
+    // Clear tokens if necessary: localStorage.clear();
+    this.router.navigate(['/']);
   }
 }

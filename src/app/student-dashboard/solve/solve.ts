@@ -166,7 +166,7 @@ public class Main {
     };
 
     this.http.post<any>(
-      'https://practical-platform.onrender.com',
+      'https://practical-platform.onrender.com/run',
       request
     ).subscribe({
 

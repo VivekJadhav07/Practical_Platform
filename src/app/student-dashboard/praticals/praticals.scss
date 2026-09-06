@@ -15,10 +15,9 @@
   box-sizing: border-box;
   overflow-x: hidden;
 
-  /* Mobile fixes: Side padding and bottom navigation clearance */
   @media (max-width: 768px) {
     padding: 16px;
-    padding-bottom: 100px; /* Crucial: clears the bottom nav bar */
+    padding-bottom: 100px;
   }
 }
 
@@ -42,7 +41,6 @@
   margin-bottom: 40px;
   animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
-  /* Enables edge-to-edge scrolling on mobile */
   @media (max-width: 768px) {
     width: calc(100% + 32px);
     margin-left: -16px;
@@ -58,7 +56,7 @@
 .filters {
   display: flex;
   gap: 12px;
-  width: max-content; /* Prevents chips from squishing */
+  width: max-content;
 
   .filter-chip {
     background-color: var(--surface-card);
@@ -75,7 +73,7 @@
     &:hover { background-color: rgba(0,0,0,0.03); }
 
     &.active {
-      background-color: rgba(16, 185, 129, 0.1); /* Primary green tint */
+      background-color: rgba(16, 185, 129, 0.1);
       color: var(--color-primary, #10b981);
       border-color: rgba(16, 185, 129, 0.3);
     }
@@ -152,8 +150,6 @@
     border-bottom: 1px solid var(--border-color);
     transition: background-color 0.2s;
     cursor: pointer;
-
-    /* Strict containment to prevent blowout */
     width: 100%;
     box-sizing: border-box;
 
@@ -163,7 +159,6 @@
     @media (max-width: 768px) {
       padding: 14px 16px;
       gap: 12px;
-
       &:active { background-color: rgba(0,0,0,0.03); }
     }
 
@@ -173,8 +168,6 @@
       color: var(--text-muted);
       font-variant-numeric: tabular-nums;
       flex-shrink: 0;
-
-      /* Hide the number on mobile to save horizontal space */
       @media (max-width: 768px) { display: none; }
     }
 
@@ -185,7 +178,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0; /* Prevents squishing */
+      flex-shrink: 0;
 
       @media (max-width: 768px) {
         width: 36px;
@@ -198,7 +191,7 @@
 
     .row-content {
       flex: 1;
-      min-width: 0; /* MAGIC FIX: Stops text from blowing out the grid */
+      min-width: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -208,17 +201,14 @@
         font-size: 0.95rem;
         font-weight: 700;
         color: var(--text-heading);
-
-        /* Truncate long practical names properly */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
         @media (max-width: 768px) { font-size: 0.9rem; margin-bottom: 4px; }
       }
 
       .mobile-meta {
-        display: none; /* Hidden on desktop */
+        display: none;
         font-size: 0.75rem;
         color: var(--text-secondary);
         font-weight: 500;
@@ -238,12 +228,11 @@
       color: var(--text-muted);
       font-variant-numeric: tabular-nums;
       flex-shrink: 0;
-      width: 80px; /* Fixed width to align columns nicely on desktop */
+      width: 80px;
       text-align: left;
     }
 
     .desktop-only {
-      /* Hide separate meta columns on mobile since they move to subtitle */
       @media (max-width: 768px) { display: none; }
     }
 
@@ -252,13 +241,12 @@
       display: flex;
       justify-content: flex-end;
       min-width: 80px;
-
       @media (max-width: 768px) { min-width: auto; }
     }
   }
 }
 
-/* --- BADGES (Re-used from theme) --- */
+/* --- BADGES --- */
 .badge {
   display: inline-flex;
   align-items: center;

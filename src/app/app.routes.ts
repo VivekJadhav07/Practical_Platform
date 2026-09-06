@@ -25,10 +25,15 @@ export const routes: Routes = [
           import('./student-dashboard/praticals/praticals').then(m => m.PracticalsComponent)
       },
       {
-        path: 'solve',
-        loadComponent: () =>
-          import('./student-dashboard/solve/solve').then(m => m.SolveComponent)
-      },
+  path: 'solve',
+  loadComponent: () =>
+    import('./student-dashboard/solve/solve').then(m => m.SolveComponent)
+},
+       {
+  path: 'solve/:id', // <--- Must include /:id so the router accepts the practical ID
+  loadComponent: () =>
+    import('./student-dashboard/solve/solve').then(m => m.SolveComponent)
+},
       {
   path: 'practice',
   loadComponent: () =>

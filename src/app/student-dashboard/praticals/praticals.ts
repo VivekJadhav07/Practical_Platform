@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-// --- INTERFACES ---
 export interface Practical {
   id: string;
   num: string;
@@ -13,7 +12,7 @@ export interface Practical {
   status: string;
   statusClass: string;
   iconClass: string;
-  iconSvg: string;
+  iconSvg: SafeHtml;
 }
 
 export interface SubjectGroup {
@@ -27,41 +26,60 @@ export interface SubjectGroup {
 
 @Component({
   selector: 'app-practicals',
-  standalone: true,            // <-- REQUIRED FOR MODERN ANGULAR
-  imports: [CommonModule,RouterModule],     // <-- TELLS ANGULAR WHAT *ngFor and [ngClass] ARE
-  templateUrl: './praticals.html', // (Make sure this matches your exact HTML file name)
-  styleUrls: ['./praticals.scss'] // (Make sure this matches your exact SCSS file name)
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './praticals.html',
+  styleUrls: ['./praticals.scss']
 })
 export class PracticalsComponent implements OnInit {
 
-  // Filter State
   filters: string[] = ['All', 'Pending', 'Submitted', 'Graded'];
   activeFilter: string = 'All';
-
-  // Component Data
   subjectGroups: SubjectGroup[] = [];
 
-  constructor() { }
+  constructor(private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.loadPracticalsData();
   }
 
-  // Filter click handler
   setActiveFilter(filter: string): void {
     this.activeFilter = filter;
-    // You can add logic here to actually filter the 'subjectGroups' array based on the status
   }
 
-  // Load dummy data (matching your UI)
+  // Navigate to solve page with the specific problem ID (fixed with /student prefix)
+  goToSolve(problemId: string): void {
+    this.router.navigate(['/student/solve', problemId]);
+  }
+
+  get filteredSubjectGroups() {
+    return this.subjectGroups.map(group => {
+      const filteredPracticals = group.practicals.filter(prac => {
+        if (this.activeFilter === 'All') return true;
+        if (this.activeFilter === 'Pending') return prac.status.toLowerCase() === 'pending';
+        if (this.activeFilter === 'Submitted') return prac.status.toLowerCase() === 'submitted';
+        if (this.activeFilter === 'Graded') return prac.status.includes('/') || prac.status.toLowerCase() === 'graded';
+        return true;
+      });
+
+      return {
+        ...group,
+        filteredPracticals,
+        filteredPracticalsCount: filteredPracticals.length
+      };
+    }).filter(group => group.filteredPracticals.length > 0);
+  }
+
   loadPracticalsData(): void {
+    const defaultSvg = this.sanitizer.bypassSecurityTrustHtml('<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>');
+
     this.subjectGroups = [
       {
         id: 'sub-1',
         title: 'Data Structures',
         dotClass: 'dot-green',
-        totalPracticals: 6,
-        averageScore: '8.5/10',
+        totalPracticals: 5,
+        averageScore: '8.8/10',
         practicals: [
           {
             id: 'prac-1',
@@ -72,8 +90,7 @@ export class PracticalsComponent implements OnInit {
             status: 'Pending',
             statusClass: 'badge-orange',
             iconClass: 'badge-orange-icon',
-            // Simple generic code/bracket icon
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>'
+            iconSvg: defaultSvg
           },
           {
             id: 'prac-2',
@@ -83,73 +100,41 @@ export class PracticalsComponent implements OnInit {
             points: '10 pts',
             status: '9/10',
             statusClass: 'badge-green',
-            iconClass: 'badge-orange-icon',
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>'
+            iconClass: 'badge-green-icon',
+            iconSvg: defaultSvg
           },
           {
             id: 'prac-3',
             num: '03',
             title: 'Linked list — insertion & deletion',
-            language: 'C',
+            language: 'C++',
             points: '10 pts',
             status: '8/10',
             statusClass: 'badge-green',
-            iconClass: 'badge-orange-icon',
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>'
+            iconClass: 'badge-green-icon',
+            iconSvg: defaultSvg
           },
           {
             id: 'prac-4',
             num: '04',
             title: 'Bubble sort',
-            language: 'C',
+            language: 'Java',
             points: '10 pts',
             status: '10/10',
             statusClass: 'badge-green',
-            iconClass: 'badge-orange-icon',
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>'
-          }
-        ]
-      },
-      {
-        id: 'sub-2',
-        title: 'DBMS',
-        dotClass: 'dot-purple',
-        totalPracticals: 5,
-        averageScore: '7.8/10',
-        practicals: [
+            iconClass: 'badge-green-icon',
+            iconSvg: defaultSvg
+          },
           {
             id: 'prac-5',
-            num: '01',
-            title: 'SELECT with JOIN queries',
-            language: 'SQL',
-            points: '10 pts',
+            num: '05',
+            title: 'Binary Search Tree (BST) - Insertion',
+            language: 'Python',
+            points: '15 pts',
             status: 'Pending',
             statusClass: 'badge-orange',
-            iconClass: 'badge-purple-icon',
-            // Simple generic database cylinder icon
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>'
-          },
-          {
-            id: 'prac-6',
-            num: '02',
-            title: 'Normalization — 3NF',
-            language: 'SQL',
-            points: '10 pts',
-            status: '7/10',
-            statusClass: 'badge-orange', // or badge-yellow depending on your theme setup
-            iconClass: 'badge-purple-icon',
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>'
-          },
-          {
-            id: 'prac-7',
-            num: '03',
-            title: 'ER Diagram — Hospital DB',
-            language: 'Theory',
-            points: '10 pts',
-            status: '8/10',
-            statusClass: 'badge-green',
-            iconClass: 'badge-purple-icon',
-            iconSvg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>'
+            iconClass: 'badge-orange-icon',
+            iconSvg: defaultSvg
           }
         ]
       }

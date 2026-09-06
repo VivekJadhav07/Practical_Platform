@@ -1,0 +1,130 @@
+<div class="practice-page">
+
+  <!-- HEADER -->
+  <header class="practice-header">
+
+    <div>
+      <h2>Practice</h2>
+      <p>Write, run and test your code.</p>
+    </div>
+
+  </header>
+
+
+  <!-- COMPILER -->
+  <div class="compiler-container">
+
+
+    <!-- CODE EDITOR -->
+    <div class="editor-container">
+
+      <!-- TOOLBAR -->
+      <div class="editor-toolbar">
+
+        <div class="lang-selector">
+
+          <select
+            [(ngModel)]="selectedLanguage"
+            (change)="changeLanguage()">
+
+            <option
+              *ngFor="let lang of availableLanguages"
+              [value]="lang">
+
+              {{ lang }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <button
+          class="btn-run"
+          (click)="runCode()"
+          [disabled]="isRunning">
+
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="currentColor">
+
+            <path d="M8 5v14l11-7z"/>
+
+          </svg>
+
+          {{ isRunning ? 'Running...' : 'Run Code' }}
+
+        </button>
+
+      </div>
+
+
+      <!-- CODE AREA -->
+      <div class="editor-body">
+
+        <textarea
+          class="code-textarea"
+          [(ngModel)]="codeContent"
+          spellcheck="false">
+        </textarea>
+
+      </div>
+
+    </div>
+
+
+    <!-- INPUT -->
+    <div class="io-card">
+
+      <div class="io-header">
+
+        <span class="section-label">
+          INPUT
+        </span>
+
+        <span class="io-hint">
+          Custom input
+        </span>
+
+      </div>
+
+
+      <textarea
+        class="input-textarea"
+        [(ngModel)]="inputContent"
+        placeholder="Enter your input here...">
+      </textarea>
+
+    </div>
+
+
+    <!-- OUTPUT -->
+    <div class="io-card">
+
+      <div class="io-header">
+
+        <span class="section-label">
+          OUTPUT
+        </span>
+
+        <span
+          class="execution-status"
+          *ngIf="statusMessage">
+
+          {{ statusMessage }}
+
+        </span>
+
+      </div>
+
+
+      <pre class="output-content">{{ outputContent }}</pre>
+
+    </div>
+
+  </div>
+
+</div>

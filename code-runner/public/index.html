@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CodeForge</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+
+            background: #0b1120;
+            color: #d7dee9;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 20px;
+
+            background: #111827;
+
+            border-bottom: 1px solid #263244;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .brand-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #3b82f6;
+        }
+
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+
+        .header-right {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .language-label {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+
+        select {
+            padding: 8px 30px 8px 10px;
+
+            background: #0b1120;
+            color: #e2e8f0;
+
+            border: 1px solid #334155;
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        select:focus {
+            border-color: #3b82f6;
+        }
+
+
+        /* ================= RUN ================= */
+
+        .run-btn {
+            padding: 9px 17px;
+
+            border: none;
+            border-radius: 5px;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .run-btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        .run-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .main {
+            height: calc(100vh - 58px);
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 16px 20px;
+
+            gap: 12px;
+        }
+
+
+        /* ================= EDITOR ================= */
+
+        .editor-section {
+            flex: 1;
+
+            min-height: 0;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .section-title {
+            height: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+        }
+
+
+        .editor {
+            flex: 1;
+
+            min-height: 0;
+
+            display: flex;
+
+            background: #020617;
+
+            border: 1px solid #263244;
+
+            border-radius: 6px;
+
+            overflow: hidden;
+        }
+
+
+        /* ================= LINE NUMBERS ================= */
+
+        .line-numbers {
+            width: 52px;
+
+            padding-top: 15px;
+            padding-right: 12px;
+
+            background: #0b1220;
+
+            color: #475569;
+
+            text-align: right;
+
+            font-family: Consolas, monospace;
+
+            font-size: 14px;
+
+            line-height: 21px;
+
+            user-select: none;
+
+            overflow: hidden;
+        }
+
+
+        /* ================= CODE ================= */
+
+        #code {
+            flex: 1;
+
+            width: 100%;
+            height: 100%;
+
+            padding: 15px;
+
+            background: #020617;
+            color: #e2e8f0;
+
+            border: none;
+            outline: none;
+
+            resize: none;
+
+            font-family:
+                Consolas,
+                "Courier New",
+                monospace;
+
+            font-size: 14px;
+
+            line-height: 21px;
+
+            white-space: pre;
+
+            tab-size: 4;
+        }
+
+
+        #code::selection {
+            background: #1e40af;
+        }
+
+
+        /* ================= BOTTOM ================= */
+
+        .bottom {
+            height: 220px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            min-height: 0;
+        }
+
+
+        .panel {
+            min-width: 0;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .panel-header {
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+        }
+
+
+        /* ================= CLEAR ================= */
+
+        .clear-btn {
+            padding: 4px 9px;
+
+            background: transparent;
+
+            border: 1px solid #334155;
+
+            border-radius: 4px;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .clear-btn:hover {
+            color: white;
+            border-color: #64748b;
+        }
+
+
+        /* ================= INPUT ================= */
+
+        #input {
+            flex: 1;
+
+            width: 100%;
+
+            padding: 13px;
+
+            background: #020617;
+            color: #d7dee9;
+
+            border: 1px solid #263244;
+
+            border-radius: 6px;
+
+            outline: none;
+            resize: none;
+
+            font-family: Consolas, monospace;
+
+            font-size: 13px;
+
+            line-height: 20px;
+        }
+
+
+        #input:focus {
+            border-color: #3b82f6;
+        }
+
+
+        #input::placeholder {
+            color: #475569;
+        }
+
+
+        /* ================= OUTPUT ================= */
+
+        #output {
+            flex: 1;
+
+            padding: 13px;
+
+            background: #020617;
+
+            border: 1px solid #263244;
+
+            border-radius: 6px;
+
+            color: #d7dee9;
+
+            font-family: Consolas, monospace;
+
+            font-size: 13px;
+
+            line-height: 20px;
+
+            white-space: pre-wrap;
+
+            overflow: auto;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status {
+            font-size: 11px;
+
+            color: #64748b;
+        }
+
+
+        .status.success {
+            color: #4ade80;
+        }
+
+
+        .status.error {
+            color: #f87171;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 800px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .main {
+                height: auto;
+            }
+
+            .bottom {
+                grid-template-columns: 1fr;
+
+                height: auto;
+            }
+
+            .panel {
+                height: 180px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="brand-dot"></div>
+
+        <div class="brand-name">
+            CodeForge
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="language-label">
+            Language
+        </span>
+
+
+        <select id="language"
+                onchange="changeLanguage()">
+
+            <option value="50">
+                C
+            </option>
+
+            <option value="54">
+                C++
+            </option>
+
+            <option value="62">
+                Java
+            </option>
+
+            <option value="71">
+                Python
+            </option>
+
+            <option value="63">
+                JavaScript
+            </option>
+
+        </select>
+
+
+        <button
+            class="run-btn"
+            id="runBtn"
+            onclick="runCode()">
+
+            ▶ Run
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+
+    <!-- ================= CODE EDITOR ================= -->
+
+    <section class="editor-section">
+
+        <div class="section-title">
+
+            <span>Editor</span>
+
+            <span id="languageName">
+                C
+            </span>
+
+        </div>
+
+
+        <div class="editor">
+
+
+            <div
+                class="line-numbers"
+                id="lineNumbers">
+            </div>
+
+
+            <textarea
+                id="code"
+                spellcheck="false"
+                oninput="updateLineNumbers()"
+                onscroll="syncScroll">
+            </textarea>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= INPUT + OUTPUT ================= -->
+
+    <section class="bottom">
+
+
+        <!-- INPUT -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <span>Input</span>
+
+
+                <button
+                    class="clear-btn"
+                    onclick="clearInput()">
+
+                    Clear
+
+                </button>
+
+            </div>
+
+
+            <textarea
+                id="input"
+                spellcheck="false"
+                placeholder="Enter program input..."></textarea>
+
+        </div>
+
+
+
+        <!-- OUTPUT -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <span>Output</span>
+
+
+                <span
+                    class="status"
+                    id="status">
+
+                    Ready
+
+                </span>
+
+            </div>
+
+
+            <div id="output">
+
+                Run your program to see the output.
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<script>
+
+
+// =====================================================
+// STARTER CODE
+// =====================================================
+
+const starterCode = {
+
+    c: `#include <stdio.h>
+
+int main() {
+
+    // Write your code here
+
+    return 0;
+}`,
+
+
+    cpp: `#include <iostream>
+using namespace std;
+
+int main() {
+
+    // Write your code here
+
+    return 0;
+}`,
+
+
+    java: `import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Write your code here
+
+    }
+}`,
+
+
+    python: `# Write your code here
+`,
+
+
+    javascript: `// Write your code here
+`
+
+};
+
+
+// =====================================================
+// LANGUAGE NAMES
+// =====================================================
+
+const languageNames = {
+
+    "50": "C",
+
+    "54": "C++",
+
+    "62": "Java",
+
+    "71": "Python",
+
+    "63": "JavaScript"
+
+};
+
+
+// =====================================================
+// CHANGE LANGUAGE
+// =====================================================
+
+function changeLanguage() {
+
+    const language =
+        document.getElementById("language").value;
+
+
+    const code =
+        document.getElementById("code");
+
+
+    if (language === "50") {
+
+        code.value =
+            starterCode.c;
+
+    }
+
+    else if (language === "54") {
+
+        code.value =
+            starterCode.cpp;
+
+    }
+
+    else if (language === "62") {
+
+        code.value =
+            starterCode.java;
+
+    }
+
+    else if (language === "71") {
+
+        code.value =
+            starterCode.python;
+
+    }
+
+    else if (language === "63") {
+
+        code.value =
+            starterCode.javascript;
+
+    }
+
+
+    document.getElementById(
+        "languageName"
+    ).innerText =
+        languageNames[language];
+
+
+    document.getElementById(
+        "output"
+    ).innerText =
+        "Run your program to see the output.";
+
+
+    setStatus("Ready", "");
+
+    updateLineNumbers();
+
+}
+
+
+// =====================================================
+// RUN CODE
+// =====================================================
+
+async function runCode() {
+
+    const code =
+        document.getElementById("code").value;
+
+
+    const languageId =
+        document.getElementById("language").value;
+
+
+    const input =
+        document.getElementById("input").value;
+
+
+    const output =
+        document.getElementById("output");
+
+
+    const runBtn =
+        document.getElementById("runBtn");
+
+
+    if (!code.trim()) {
+
+        output.innerText =
+            "Please write some code.";
+
+        setStatus(
+            "Error",
+            "error"
+        );
+
+        return;
+    }
+
+
+    runBtn.disabled = true;
+
+    runBtn.innerText =
+        "⏳ Running";
+
+
+    output.innerText =
+        "Executing...";
+
+
+    setStatus(
+        "Running...",
+        ""
+    );
+
+
+    try {
+
+        const response =
+            await fetch("/run", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    code: code,
+
+                    language_id:
+                        Number(languageId),
+
+                    stdin: input
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        // Compilation error
+
+        if (data.compile_output) {
+
+            output.innerText =
+                data.compile_output;
+
+            setStatus(
+                "Compilation Error",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // Runtime error
+
+        if (data.stderr) {
+
+            output.innerText =
+                data.stderr;
+
+            setStatus(
+                "Runtime Error",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // Judge0 error
+
+        if (
+            data.status &&
+            data.status.id !== 3
+        ) {
+
+            output.innerText =
+                data.status.description;
+
+            setStatus(
+                data.status.description,
+                "error"
+            );
+
+            return;
+        }
+
+
+        // Successful execution
+
+        output.innerText =
+            data.stdout || "No output";
+
+
+        setStatus(
+            "✓ Finished",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        output.innerText =
+            "Unable to connect to compiler server.";
+
+
+        setStatus(
+            "Server Error",
+            "error"
+        );
+
+    }
+
+
+    finally {
+
+        runBtn.disabled = false;
+
+        runBtn.innerText =
+            "▶ Run";
+
+    }
+
+}
+
+
+// =====================================================
+// STATUS
+// =====================================================
+
+function setStatus(text, type) {
+
+    const status =
+        document.getElementById("status");
+
+
+    status.innerText =
+        text;
+
+
+    status.className =
+        "status " + type;
+
+}
+
+
+// =====================================================
+// CLEAR INPUT
+// =====================================================
+
+function clearInput() {
+
+    document.getElementById(
+        "input"
+    ).value = "";
+
+}
+
+
+// =====================================================
+// LINE NUMBERS
+// =====================================================
+
+function updateLineNumbers() {
+
+    const code =
+        document.getElementById("code").value;
+
+
+    const lines =
+        code.split("\n").length;
+
+
+    let numbers = "";
+
+
+    for (
+        let i = 1;
+        i <= lines;
+        i++
+    ) {
+
+        numbers += i + "\n";
+
+    }
+
+
+    document.getElementById(
+        "lineNumbers"
+    ).innerText =
+        numbers;
+
+}
+
+
+// =====================================================
+// SCROLL LINE NUMBERS
+// =====================================================
+
+function syncScroll() {
+
+    const code =
+        document.getElementById("code");
+
+
+    const lineNumbers =
+        document.getElementById("lineNumbers");
+
+
+    lineNumbers.scrollTop =
+        code.scrollTop;
+
+}
+
+
+// =====================================================
+// INITIAL LOAD
+// =====================================================
+
+changeLanguage();
+
+</script>
+
+
+</body>
+
+</html>

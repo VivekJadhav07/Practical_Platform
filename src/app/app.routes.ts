@@ -30,6 +30,12 @@ export const routes: Routes = [
           import('./student-dashboard/solve/solve').then(m => m.SolveComponent)
       },
       {
+  path: 'practice',
+  loadComponent: () =>
+    import('./student-dashboard/practice/practice')
+      .then(m => m.PracticeComponent)
+},
+      {
         path: 'results',
         loadComponent: () =>
           import('./student-dashboard/result/result').then(m => m.ResultComponent)

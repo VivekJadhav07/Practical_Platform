@@ -166,7 +166,7 @@ public class Main {
     };
 
     this.http.post<any>(
-      'http://localhost:5000/run',
+      'https://practical-platform.onrender.com',
       request
     ).subscribe({
 
